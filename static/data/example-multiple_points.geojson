@@ -1,0 +1,84 @@
+
+   { "type": "FeatureCollection",
+     "features": [
+     { "type": "Feature",
+           "geometry": {"type": "Point", "coordinates": [-95.25,38.96]},
+           "properties": {"title": "BBQ to My Dad",
+                 "request-type": "give",
+                 "loc-name": "Lawrence, KS",
+                 "person-name": "Sarah A.",
+                 "person-id": "99999999",
+                 "img-url": "http://www.bluemountain.com/blog/wp-content/uploads/2012/01/edgar-allan-poe1.jpg",
+                 "connection-stage": "1",
+                 "blog-url": "http://www.tumblr.com",
+                 "request-date": "August 8, 2014",
+                 "completed": "0",
+                 "completed-id": "25",
+                 "marker-size": "medium",
+                 "marker-color": "#f44",
+                 "marker-symbol":"bicycle"}
+           },
+    { "type": "Feature",
+               "geometry": {"type": "Point", "coordinates": [-95.25,38.96]},
+               "properties": {"title": "BBQ to My Dad",
+                     "request-type": "give",
+                     "loc-name": "Lawrence, KS",
+                     "person-name": "Sarah A.",
+                     "person-id": "99999999",
+                     "img-url": "http://www.bluemountain.com/blog/wp-content/uploads/2012/01/edgar-allan-poe1.jpg",
+                     "connection-stage": "1",
+                     "blog-url": "http://www.tumblr.com",
+                     "request-date": "August 8, 2014",
+                     "completed": "0",
+                     "completed-id": "25",
+                     "marker-size": "medium",
+                     "marker-color": "#f44",
+                     "marker-symbol":"bicycle"}
+               },
+    { "type": "Feature",
+               "geometry": {"type": "Point", "coordinates": [-95.25,38.96]},
+               "properties": {"title": "BBQ to My Dad",
+                     "request-type": "give",
+                     "loc-name": "Lawrence, KS",
+                     "person-name": "Sarah A.",
+                     "person-id": "99999999",
+                     "img-url": "http://www.bluemountain.com/blog/wp-content/uploads/2012/01/edgar-allan-poe1.jpg",
+                     "connection-stage": "1",
+                     "blog-url": "http://www.tumblr.com",
+                     "request-date": "August 8, 2014",
+                     "completed": "0",
+                     "completed-id": "25",
+                     "marker-size": "medium",
+                     "marker-color": "#f44",
+                     "marker-symbol":"bicycle"}
+               },
+
+       { "type": "Feature",
+         "geometry": {
+           "type": "LineString",
+           "coordinates": [
+             [-91.25,38.96], [-94.25,36.96], [-95.25,35.96], [-96.25,37.96]
+             ]
+           },
+         "properties": {
+           "prop0": "value0",
+           "prop1": 0.0
+           }
+         },
+       { "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [ [-90.25,33.96], [-90.25,35.96], [-92.25,37.96],
+                [-91.25,34.96], [-91.25,34.96] ]
+              ]
+
+          },
+          "properties": {
+            "prop0": "value0",
+            "prop1": {"this": "that"}
+            }
+          }
+       ]
+     }
+

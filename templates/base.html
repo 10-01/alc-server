@@ -1,0 +1,399 @@
+{% import "macros.html" as macros %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ locale_language_id }}"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="{{ locale_language_id }}"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="{{ locale_language_id }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ locale_language_id }}"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    <meta name="description" content="Providing an unexpected gift at an unexpected time">
+    <meta name="author" content="a little closer">
+    <meta name="keywords" content="gift, a little closer, surprise, free">
+    <meta name="generator" content="a little closer">
+
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    {% if is_mobile %}
+    <meta http-equiv="refresh" content="0; url=/mobile" />
+    {% endif %}
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/basic.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <script src='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+    <link href='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+    <!--[if lte IE 8]>
+    <link href='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
+    <![endif]-->
+    <link href='/css/leaflet.draw.css' rel='stylesheet' />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/leaflet.draw.ie.css" />
+    <![endif]-->
+    <script src='/js/leaflet.draw.js'></script>
+    <link rel="stylesheet" href="/css/medium.editor.css" />
+
+    <!--fonts-->
+    <!--<script type="text/javascript" src="//use.typekit.net/uti0ulz.js"></script>-->
+    <!--<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
+
+    {% block mediaCSS %}{% endblock %}
+    {% block head %}{% endblock %}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ google_analytics_code }}']);
+        {% if google_analytics_domain != "" %}
+        _gaq.push(['_setDomainName', '{{ google_analytics_domain }}']);
+        {% endif %}
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance. -->
+    <script src="/js/libs/modernizr-2.6.1.min.js"></script>
+</head>
+<body>
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+           chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 8]>
+    	<p class=chromeframe>{% trans %}Your browser is <em>ancient!</em>{% endtrans %} 
+    	{% trans %}<a href="http://browsehappy.com/">Upgrade to a different browser</a>
+    	or <a href="http://www.google.com/chromeframe/?redirect=true">
+    	install Google Chrome Frame</a> to experience this site.{% endtrans %}</p>
+    <![endif]-->
+
+    <div id="page">
+        {% block navbar %}
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-inner">
+                <a class="navbar-brand" id="nav_img_space" href="/"><img id="nav_logo" src="/img/alc_final_rv_text.png"></a>
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ uri_for("connections") }}">Connections</a></li>
+                    <li><a href="{{ uri_for("map") }}">Map</a></li>
+                    <li><a href="{{ uri_for("blog") }}">Blog</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-toggle="modal" href="#addConnectionModal"><span style="margin-right: 10px;" class="glyphicon glyphicon-plus"></span>Add Connection</a></li>
+                    {% if user_id %}
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ username }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ uri_for("profile") }}">{% trans %}My Profile{% endtrans %}</a></li>
+                            <li><a href="{{ uri_for("edit-profile") }}">{% trans %}Edit Profile{% endtrans %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ logout_url }}">{% trans %}Logout{% endtrans %}</a></li>
+                        </ul>
+                    </li>
+                    {% elif path != "/login/" %}
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Login{% endtrans %} <b class="caret"></b></a>
+                        <div class="dropdown-menu well">
+                            <form id="form_login_user" action="{{ uri_for("login") }}" method="post" class="auth-at-dropdown">
+                                <fieldset>
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                    <div class="control-group">
+                                        <label class="login_text" for="l_username">{% trans %}Username or Email{% endtrans %}:</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused required" id="l_username" name="username" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="login_text" for="l_password">{% trans %}Password{% endtrans %}:</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused required" id="l_password" name="password" type="password" value="">
+                                        </div>
+                                    </div>
+                                    <div class="control-group row">
+                                        <label class="checkbox col-xs-12 login_text">
+                                            <input type="checkbox" name="remember_me" id="remember_me"  value="on" style="margin-left: -5px;margin-right: 3px;">
+                                            {% trans %}Remember me?{% endtrans %}
+                                        </label>
+                                        <div class="col-xs-12">
+                                            <button style="padding-top: 5px;" type="submit" class="btn btn-default btn-small btn-login">{% trans %}Login{% endtrans %}</button>
+                                            <a href="#signUpModal" class="login_text_signup" role="button" style="margin-left: 25px;margin-bottom: 20px;"  data-toggle="modal">Sign Up</a>
+                                        </div>
+                                    </div>
+
+                                    {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
+                                </fieldset>
+                            </form>
+
+                            <div style="margin-top: 10px;"><a class="login_text" href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a></div>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div><!-- /navbar-inner -->
+        </nav><!-- /navbar -->
+        {% endblock %}
+
+        <!--Sign Up Modal-->
+        <div id="signUpModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+            <h4>{% trans %}Sign Up{% endtrans %}</h4>
+                </div>
+                    <div class="modal-body">
+                        <form id="form_register" action="{{ uri_for("register") }}" method="post">
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                            <div class="control-group">
+                                <label class="controls">
+                                    <input class="focused required" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="controls">
+                                    <input class="focused required email" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
+                                    <input type="hidden" name="country" value="">
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="controls">
+                                    <input class="focused required" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="controls">
+                                    <input class="focused required" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <input type="hidden" name="country">
+                                <input type="hidden" name="tz">
+                                <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /modal -->
+
+        <!--Add Connection Modal-->
+        <div id="addConnectionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--If the user is logged in, present the form-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+            {% if user_id %}
+
+                        <h4>{% trans %}A Few Connection Details{% endtrans %}</h4>
+                    </div>
+                    <div id="give_error"></div>
+                    <div class="modal-body">
+                        <form  name="add_connection_field" id="add_connection_form" data-validate="parsley">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                            <div id="giveformfields" class="givegetformfields">
+                                <input type="text" class="form-control"  name="give_title" placeholder="Title*" data-trigger="keyup" data-rangelength="[3,100]">
+                                <input type="text" class="form-control" name="give_personthing_name" placeholder="Name of recipient*" data-trigger="keyup" data-rangelength="[3,100]">
+                                <textarea class="form-control" rows="3" name="give_request_reason" placeholder="Why would you like to give this person something?*" data-trigger="keyup" data-rangelength="[20,200]"></textarea>
+                                <textarea class="form-control" rows="3" name="give_summary" id="give_summary" placeholder="What would you like to give?*" data-required="true" data-trigger="change"></textarea>
+                                <textarea class="form-control" rows="3" name="give_personalized_message" placeholder="Would you like us to pass along a private note?"></textarea>
+                            </div>
+
+
+                            <div class="control-group">
+                                <input type="hidden" name="country">
+                                <input type="hidden" name="tz">
+                            </div>
+                        </form>
+                        <div id="formmapdiv">
+
+                            <div id="addconnectionmap">
+
+                            </div>
+
+                        </div>
+                        <div id="dropzonediv">
+
+                            <form action="/fileupload"
+                                  method="post"
+                                  id="my-awesome-dropzone">
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div id="givegetformfieldssubmitarea"><button disabled="disabled" id="form_next" type="button" class="btn btn-primary btn-sm">Next (1/3)</button></div>
+                        <div id="map_nav_controls">
+                            <div id="mapback"><button type="button" class="btn btn-default btn-sm">Back</button></div>
+                            <p class="form-text" id="map_form_header">Approximately where would you like the item delivered?</p>
+                            <div id="mapnext"><button disabled="disabled" id="map_next" type="button" class="btn btn-primary btn-sm">Next (2/3)</button></div>
+                        </div>
+                        <div id="submit_nav">
+                            <div id="dropzoneback"><button type="button" class="btn btn-default btn-sm">Back</button></div>
+                            <p class="form-text" id="drop_form_header">Please Add At Least One Related Photo</p>
+                            <div id="givegetsubmitarea"><button disabled="disabled" id="add_submit_button" type="button" class="btn btn-primary btn-sm">Submit</button></div>
+                        </div>
+                    </div>
+
+            <!--If user not logged in, prompt to login-->
+            {% else %}
+                <h4>{% trans %}Login Please{% endtrans %}</h4>
+                <div class="modal-body">
+                    <a href="#signUpModal" id="signUpAddModalButton" role="button" class="btn" data-toggle="modal">Sign Up</a>
+                </div>
+
+            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- /modal -->
+
+
+        {% if messages|safe %}
+        	{% for message in messages %}
+            <p class="alert alert-{{ message[1]|safe }}">
+                <a class="close" data-dismiss="alert">×</a>
+                {{ message[0]|safe }}
+            </p>
+            {% endfor %}
+        {% endif %}
+            {% block content %}{% endblock %}
+
+            {% block footer %}
+            <footer>
+                <!--Leaving as a holding area for a footer-->
+            </footer>
+            {% endblock %}
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <!-- JavaScript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/libs/jquery.min.js"><\/script>')</script>
+    <script src="/js/libs/bootstrap.min.js"></script>
+    <script src="/js/dropzone.js"></script>
+    <script src="/js/parsley.js"></script>
+    <script type="text/javascript">
+        $('#signUpAddModalButton').click(function(){
+            $('#addConnectionModal').modal('hide')
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            // Now that the DOM is fully loaded, create the dropzone, and setup the
+            // event listeners
+            var myDropzone = new Dropzone("#my-awesome-dropzone");
+            alittlecloser.media_ids = new Array()
+            alittlecloser.upload_int = 1;
+
+            myDropzone.on("success", function(file) {
+                /* Maybe display some more file information on your page */
+                if (alittlecloser.upload_int == 1){
+                    alittlecloser.primary_media = file.name;
+                }
+                alittlecloser.media_ids.push(file.xhr.response)
+
+                $('#add_submit_button').removeAttr('disabled');
+                alittlecloser.upload_int = alittlecloser.upload_int+1;
+                });
+            });
+
+    </script>
+
+    <!-- scripts concatenated and minified via build script -->
+    <script src="/js/plugins.js"></script>
+    <script src="/js/script.js"></script>
+    <script type="text/javascript">
+        $( '#give_summary' ).parsley( 'addListener', {
+            onFieldValidate: function ( elem ) {
+                $('#form_next').removeAttr('disabled');
+                $('#givegetformfieldssubmitarea').click(function(e) {
+                    $("#add_connection_form").hide();
+                    $('#givegetformfieldssubmitarea').hide();
+                    $("#formmapdiv").fadeIn();
+                    $("#map_nav_controls").fadeIn();
+                    alittlecloser.map.invalidateSize();
+                    if (this !== event.target) return; // avoid infinite loop
+                });
+            }
+        } );
+
+    </script>
+    <script type="text/javascript">
+        $("#givegetsubmitarea").click(function () {
+            if (alittlecloser.upload_int > 1){
+            var form_data = document.forms["add_connection_field"].elements;
+
+            var type = "give";
+            var title = form_data.namedItem("give_title").value;
+            var summary = form_data.namedItem("give_summary").value;
+            var personthing_name = form_data.namedItem("give_personthing_name").value;
+            var request_reason = form_data.namedItem("give_request_reason").value;
+            var personalized_message = form_data.namedItem("give_personalized_message").value;
+            var apikey = {{apikey}}
+
+            var media = alittlecloser.media_ids.toString();
+
+            var callback = function () {
+                gapi.client.alittlecloser.connections.add({'apikey': apikey, 'type': type, 'title': title,
+                    'summary': summary, 'personthing_name': personthing_name, 'request_reason': request_reason,
+                    'personalized_message': personalized_message, 'media': media,
+                    'latitude': alittlecloser.point_lat, 'longitude': alittlecloser.point_lng,
+                    'primary_media':alittlecloser.primary_media}).execute(function (resp) {
+                            console.log(resp)
+                            if (resp.message=="user can only have 5 pending requests: {{apikey}}"){
+                                $('#drop_form_header').empty();
+                                $('#drop_form_header').append('<div>Maximum of 5 requests reached. Go to <a href="/profile">profile</a> to delete others.</div>')
+                            }
+                            else{
+                                location.reload();
+                            }
+
+                        });
+            };
+            gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
+        }});
+    </script>
+
+    <script type="text/javascript">
+        $('#mapback').click(function(e) {
+            $("#formmapdiv").hide();
+            $("#map_nav_controls").hide();
+            $("#add_connection_form").fadeIn();
+            $('#givegetformfieldssubmitarea').fadeIn();
+            if (this !== event.target) return; // avoid infinite loop
+        });
+    </script>
+    <script type="text/javascript">
+        $('#dropzoneback').click(function(e) {
+            $("#dropzonediv").hide();
+            $("#submit_nav").hide();
+            $("#formmapdiv").fadeIn();
+            $("#map_nav_controls").fadeIn();
+            if (this !== event.target) return; // avoid infinite loop
+        });
+    </script>
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script src="/js/xdate.js"></script>
+
+
+    {% if locale_language_id != "en" %}
+        {% if locale_iso.language == "pt" and locale_iso.territory == "BR" %}
+    <script src="/js/libs/jquery_validation/localization/messages_{{ locale_iso.language }}_{{ locale_iso.territory }}.js"></script>
+        {% else %}
+    <script src="/js/libs/jquery_validation/localization/messages_{{ locale_language_id }}.js"></script>
+        {% endif %}
+    {% endif %}
+    <script src='/js/medium.editor.min.js'></script>
+    <script>var editor = new MediumEditor('.editable');</script>
+   {% block mediaJS %}{% endblock %}
+
+    <!-- end scripts -->
+
+</body>
+</html>

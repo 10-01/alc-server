@@ -1,0 +1,72 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}{% endblock %}
+
+{% block content %}
+
+<div class="container" id="loading_div">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-5" id ="loading"><img src="/img/spinner.gif"></div>
+    </div>
+</div>
+
+<div class="container">
+
+<div id="connection_holder">
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block mediaJS %}
+    <script type="text/javascript">
+        $().ready(function() {
+            $("#form_login_user").validate({
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                errorPlacement: function(error, element) {
+                    element.parent().parent().addClass("error");
+                    error.addClass("help-inline").appendTo( element.parent() );
+                }
+            });
+
+            $("#form_register").validate({
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                rules: {
+                    password: 'required',
+                    c_password: {
+                        required: true,
+                        equalTo: '#password'
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    element.parent().parent().addClass("error");
+                    error.addClass("help-inline").appendTo( element.parent() );
+                }
+            });
+            
+            $("#password").passStrength({
+                shortPassText: '{% trans %}Short Password{% endtrans %}',
+                badPassText: '{% trans %}Insecure Password{% endtrans %}',
+                goodPassText: '{% trans %}Good Password{% endtrans %}',
+                strongPassText: '{% trans %}Secure Password{% endtrans %}'
+            });
+        });
+    </script>
+    <script type="text/javascript">window['alittlecloser.connections'] = alittlecloser.connections;</script>
+    <script src="https://apis.google.com/js/client.js?onload=alittlecloser.connections"></script>
+<script>
+    $(document).on('click','.load_more_results', function(){
+        var cursor = this.id;
+        $('.load_more_results').hide();
+        $('#connection_holder').append('<div class="row spinner_id"><div class="col-md-3 col-md-offset-4"><div class="col-md-3 col-md-offset-5" id ="loading"><img src="/img/spinner.gif"></div></div></div>');
+        alittlecloser.extend_connections(cursor);
+    });
+
+</script>
+{% endblock %}
+

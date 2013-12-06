@@ -1,0 +1,132 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="/css/admin.css" />
+{% endblock %}
+
+{% block content %}
+
+<div id="admin_map_cont">
+    <div id='admin_map'></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Route Point</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="blog_url" placeholder="Blog URL">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="loc_name" placeholder="Location Name">
+                    </div>
+
+                    <div class="form-group">
+
+                        <select class="form-control input-sm" id="route_type">
+                            <option value="planned">Planned Route</option>
+                            <option value="completed">Completed Route</option>
+                        </select>
+                        <input type="hidden" class="form-control" id="lat" >
+                        <input type="hidden" class="form-control" id="lng" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add_som_submit">Save Point</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+{% endblock %}
+
+{% block mediaJS %}
+<script src="/js/admin.js"></script>
+<script type="text/javascript">
+    var url_vars = location.search.substring(1);
+    alittlecloser.url_vars = url_vars?JSON.parse('{"' + url_vars.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+            function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
+
+    $(document).ready(loadAdminMap(alittlecloser.url_vars));
+</script>
+
+
+<script>
+    alittlecloser.load_planned = function()
+    {
+        var callback = function() {
+            gapi.client.alittlecloser.locations.list({'type':"planned"}).execute(function(resp){
+                console.log(resp);
+                var line_points = [];
+                for (var i=0,j=resp.locations.length;i<j;i++){
+                    line_points.push([resp.locations[i].latitude,resp.locations[i].longitude])
+                };
+                var polyline_options = {
+                    color: '#7ab32f'
+                };
+                var polyline = L.polyline(line_points, polyline_options).addTo(alittlecloser.admin_map);
+                alittlecloser.load_completed();
+            });
+        };
+        gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot)
+
+    }
+</script>
+<script>
+    alittlecloser.load_completed = function()
+    {
+        var callback = function() {
+            gapi.client.alittlecloser.locations.list({'type':"completed"}).execute(function(resp){
+                console.log(resp);
+                var line_points = [];
+                for (var i=0,j=resp.locations.length;i<j;i++){
+                    line_points.push([resp.locations[i].latitude,resp.locations[i].longitude])
+                };
+                var polyline_options = {
+                    color: '#d03b54'
+                };
+                var polyline = L.polyline(line_points, polyline_options).addTo(alittlecloser.admin_map);
+            });
+        };
+        gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot)
+
+    }
+</script>
+<script>
+    $("#add_som_submit").click(function () {
+
+        var title = $("input#title").val();
+        var loc_name = $("input#loc_name").val();
+        var blog_url = $("input#blog_url").val();
+        var map_stage = $("select#route_type").val()
+        var apikey = {{apikey}}
+
+
+    var callback = function () {
+        gapi.client.alittlecloser.locations.add({apikey: apikey, title:title, blog_url:blog_url, type:map_stage,loc_name:loc_name,latitude: alittlecloser.admin_lat,longitude: alittlecloser.admin_lng}).execute(function (resp) {
+            console.log(resp)
+            location.reload();
+        });
+    };
+    gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
+    });
+</script>
+<script type="text/javascript">window['alittlecloser.load_planned'] = alittlecloser.load_planned;</script>
+<script src="https://apis.google.com/js/client.js?onload=alittlecloser.load_planned"></script>
+
+{% endblock %}
+

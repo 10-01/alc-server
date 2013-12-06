@@ -1,0 +1,47 @@
+
+
+def gen_geo_json(num_points, output):
+    i = 0
+
+
+    lng = 42.96
+    metadata_file = open("%s/data_gen.geojson" % output, 'w')
+    file = '{ "type": "FeatureCollection",\r\n'
+    file = '%s"features": [\r\n' % file
+    while i < num_points:
+        n = 0
+        lat = -125.25
+        while n < 50:
+            file = '%s{ "type": "Feature",\r\n' % file
+            file = '%s    "geometry": {"type": "Point", "coordinates": [%s,%s]},\r\n' % (file, str(lat), str(lng))
+            file = '%s    "properties": {"title": "BBQ to My Dad",\r\n' % file
+            file = '%s        "request_type": "give",\r\n' % file
+            file = '%s        "loc_name": "Lawrence, KS",\r\n' % file
+            file = '%s        "person_name": "Sarah A.",\r\n' % file
+            file = '%s        "person_id": "99999999",\r\n' % file
+            file = '%s        "connection-stage": "1",\r\n' % file
+            file = '%s        "blog_url": "http://www.tumblr.com",\r\n' % file
+            file = '%s        "request_date": "August 8, 2014",\r\n' % file
+            file = '%s        "completed": "0",\r\n' % file
+            file = '%s        "completed_id": "25",\r\n' % file
+            file = '%s        "marker_size": "medium",\r\n' % file
+            file = '%s        "marker_color": "#f44",\r\n' % file
+            file = '%s        "marker_symbol":"bicycle"}\r\n' % file
+            file = '%s    },\r\n' % file
+            n+=1
+            i+=1
+            lat += 1
+        lng-=1
+
+
+
+
+    file = '%s]\r\n' % file
+    file = '%s}\r\n' % file
+
+    file = file.replace('&', 'and')
+    file = file.encode('utf-8')
+    metadata_file.write(file)
+
+if __name__ ==  "__main__":
+    gen_geo_json(399, "/Users/hstrauss/Desktop")

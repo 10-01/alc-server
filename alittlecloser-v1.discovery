@@ -1,0 +1,1356 @@
+{
+ "kind": "discovery#rpcDescription",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/-MOZgAmbWnhKHNhFJq0gBRNtPqI\"",
+ "discoveryVersion": "v1",
+ "id": "alittlecloser:v1",
+ "name": "alittlecloser",
+ "version": "v1",
+ "description": "A Little Closer API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rpc",
+ "rootUrl": "https://pivotal-essence-333.appspot.com/_ah/api/",
+ "rpcUrl": "https://pivotal-essence-333.appspot.com/_ah/api/rpc",
+ "rpcPath": "/_ah/api/rpc",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "WebAlittlecloserApiMessagesBlobUploadListResponse": {
+   "id": "WebAlittlecloserApiMessagesBlobUploadListResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "upload_url": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesCommentsAddRequest": {
+   "id": "WebAlittlecloserApiMessagesCommentsAddRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "body": {
+     "type": "string"
+    },
+    "connection_id": {
+     "type": "string"
+    },
+    "media": {
+     "type": "string"
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "post_type": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "user_id": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesCommentsAddResponse": {
+   "id": "WebAlittlecloserApiMessagesCommentsAddResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "comment_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesCommentsDeleteResponse": {
+   "id": "WebAlittlecloserApiMessagesCommentsDeleteResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesCommentsListResponse": {
+   "id": "WebAlittlecloserApiMessagesCommentsListResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "comments": {
+     "type": "array",
+     "description": "ProtoRPC message definition to represent a score that is stored.",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesCommentsResponseMessage"
+     }
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "num_of_results": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesCommentsResponseMessage": {
+   "id": "WebAlittlecloserApiMessagesCommentsResponseMessage",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a score that is stored.",
+   "properties": {
+    "body": {
+     "type": "string"
+    },
+    "comment_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_id": {
+     "type": "string"
+    },
+    "connection_title": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "media": {
+     "type": "string"
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "post_type": {
+     "type": "string"
+    },
+    "social_media_json": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "user_id": {
+     "type": "string"
+    },
+    "user_name": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionAddRequest": {
+   "id": "WebAlittlecloserApiMessagesConnectionAddRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "media": {
+     "type": "string"
+    },
+    "personalized_message": {
+     "type": "string"
+    },
+    "personthing_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "primary_media": {
+     "type": "string"
+    },
+    "private_location": {
+     "type": "string"
+    },
+    "request_reason": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionAddResponse": {
+   "id": "WebAlittlecloserApiMessagesConnectionAddResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    },
+    "new_connection_id": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionDeleteResponse": {
+   "id": "WebAlittlecloserApiMessagesConnectionDeleteResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionListResponse": {
+   "id": "WebAlittlecloserApiMessagesConnectionListResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "connections": {
+     "type": "array",
+     "description": "ProtoRPC message definition to represent a score that is stored.",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesConnectionResponseMessage"
+     }
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "num_of_results": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionResponse": {
+   "id": "WebAlittlecloserApiMessagesConnectionResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "connection": {
+     "$ref": "WebAlittlecloserApiMessagesSingleConnectionReponseMessage",
+     "description": "ProtoRPC message definition to represent a score that is stored."
+    },
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionResponseMessage": {
+   "id": "WebAlittlecloserApiMessagesConnectionResponseMessage",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a score that is stored.",
+   "properties": {
+    "blog_url": {
+     "type": "string"
+    },
+    "completed": {
+     "type": "boolean"
+    },
+    "completion_date": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "connection_stage": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_type": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "marker_color": {
+     "type": "string"
+    },
+    "marker_size": {
+     "type": "string"
+    },
+    "marker_symbol": {
+     "type": "string"
+    },
+    "media": {
+     "type": "array",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesMediaJsonFinalResponse"
+     }
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "primary_media": {
+     "type": "string"
+    },
+    "req_reason": {
+     "type": "string"
+    },
+    "social_media_json": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "user_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "user_name": {
+     "type": "string"
+    },
+    "user_picture": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionUpdateRequest": {
+   "id": "WebAlittlecloserApiMessagesConnectionUpdateRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "body": {
+     "type": "string"
+    },
+    "connection_id": {
+     "type": "string"
+    },
+    "connection_stage": {
+     "type": "string",
+     "format": "int64"
+    },
+    "media": {
+     "type": "string"
+    },
+    "personalized_message": {
+     "type": "string"
+    },
+    "personthing_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "primary_media": {
+     "type": "string"
+    },
+    "private_location": {
+     "type": "string"
+    },
+    "request_reason": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesConnectionUpdateResponse": {
+   "id": "WebAlittlecloserApiMessagesConnectionUpdateResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    },
+    "update_connection_id": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesHSLocationAddRequest": {
+   "id": "WebAlittlecloserApiMessagesHSLocationAddRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "blog_url": {
+     "type": "string"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesHSLocationAddResponse": {
+   "id": "WebAlittlecloserApiMessagesHSLocationAddResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "message": {
+     "type": "string"
+    },
+    "new_connection_id": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesHSLocationResponse": {
+   "id": "WebAlittlecloserApiMessagesHSLocationResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "cursor": {
+     "type": "string"
+    },
+    "locations": {
+     "type": "array",
+     "description": "ProtoRPC message definition to represent a score that is stored.",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesLatLngMessage"
+     }
+    },
+    "num_of_results": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesLatLngMessage": {
+   "id": "WebAlittlecloserApiMessagesLatLngMessage",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a score that is stored.",
+   "properties": {
+    "blog_url": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesLoginRequest": {
+   "id": "WebAlittlecloserApiMessagesLoginRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a url query.",
+   "properties": {
+    "password": {
+     "type": "string"
+    },
+    "username": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesLoginResponse": {
+   "id": "WebAlittlecloserApiMessagesLoginResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "message": {
+     "type": "string"
+    },
+    "status": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesMediaJsonFinalResponse": {
+   "id": "WebAlittlecloserApiMessagesMediaJsonFinalResponse",
+   "type": "object",
+   "properties": {
+    "filename": {
+     "type": "string"
+    },
+    "media_item_message": {
+     "type": "array",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesMediaJsonMessage"
+     }
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesMediaJsonMessage": {
+   "id": "WebAlittlecloserApiMessagesMediaJsonMessage",
+   "type": "object",
+   "properties": {
+    "blob_key": {
+     "type": "string"
+    },
+    "file_cat": {
+     "type": "string"
+    },
+    "filetype": {
+     "type": "string"
+    },
+    "height": {
+     "type": "string",
+     "format": "int64"
+    },
+    "width": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSearchAddRequest": {
+   "id": "WebAlittlecloserApiMessagesSearchAddRequest",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "blog_title": {
+     "type": "string"
+    },
+    "body": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "user_id": {
+     "type": "string"
+    },
+    "user_name": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSearchAddResponse": {
+   "id": "WebAlittlecloserApiMessagesSearchAddResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    },
+    "new_search_id": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSearchDeleteResponse": {
+   "id": "WebAlittlecloserApiMessagesSearchDeleteResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a scores query.",
+   "properties": {
+    "message": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSearchMessage": {
+   "id": "WebAlittlecloserApiMessagesSearchMessage",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a score that is stored.",
+   "properties": {
+    "blog_title": {
+     "type": "string"
+    },
+    "body": {
+     "type": "string"
+    },
+    "connection_id": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "user_name": {
+     "type": "string"
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSearchResponse": {
+   "id": "WebAlittlecloserApiMessagesSearchResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of stored scores.",
+   "properties": {
+    "cursor": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "num_of_results": {
+     "type": "string",
+     "format": "int64"
+    },
+    "search": {
+     "type": "array",
+     "description": "ProtoRPC message definition to represent a score that is stored.",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesSearchMessage"
+     }
+    }
+   }
+  },
+  "WebAlittlecloserApiMessagesSingleConnectionReponseMessage": {
+   "id": "WebAlittlecloserApiMessagesSingleConnectionReponseMessage",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a score that is stored.",
+   "properties": {
+    "blog_url": {
+     "type": "string"
+    },
+    "body": {
+     "type": "string"
+    },
+    "completed": {
+     "type": "boolean"
+    },
+    "completion_date": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "connection_stage": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_type": {
+     "type": "string"
+    },
+    "created": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "marker_color": {
+     "type": "string"
+    },
+    "marker_size": {
+     "type": "string"
+    },
+    "marker_symbol": {
+     "type": "string"
+    },
+    "media": {
+     "type": "array",
+     "items": {
+      "$ref": "WebAlittlecloserApiMessagesMediaJsonFinalResponse"
+     }
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "primary_media": {
+     "type": "string"
+    },
+    "req_reason": {
+     "type": "string"
+    },
+    "social_media_json": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "user_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "user_name": {
+     "type": "string"
+    },
+    "user_picture": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "alittlecloser.blob.getuploadurl": {
+   "id": "alittlecloser.blob.getuploadurl",
+   "allowGet": true,
+   "parameters": {
+    "upload_path": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesBlobUploadListResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.comments.add": {
+   "id": "alittlecloser.comments.add",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesCommentsAddRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesCommentsAddResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.comments.delete": {
+   "id": "alittlecloser.comments.delete",
+   "parameters": {
+    "post_id": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesCommentsDeleteResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.comments.list": {
+   "id": "alittlecloser.comments.list",
+   "allowGet": true,
+   "parameters": {
+    "connection_id": {
+     "type": "string"
+    },
+    "created": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "user_id": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesCommentsListResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.connection.getdetails": {
+   "id": "alittlecloser.connection.getdetails",
+   "allowGet": true,
+   "parameters": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_id": {
+     "type": "string",
+     "format": "int64"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesConnectionResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.connections.add": {
+   "id": "alittlecloser.connections.add",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesConnectionAddRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesConnectionAddResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.connections.delete": {
+   "id": "alittlecloser.connections.delete",
+   "parameters": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_id": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesConnectionDeleteResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.connections.list": {
+   "id": "alittlecloser.connections.list",
+   "allowGet": true,
+   "parameters": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_stage": {
+     "type": "string",
+     "format": "int64"
+    },
+    "connection_type": {
+     "type": "string"
+    },
+    "created": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "personthing_id": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "user_name": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesConnectionListResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.connections.update": {
+   "id": "alittlecloser.connections.update",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesConnectionUpdateRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesConnectionUpdateResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.locations.add": {
+   "id": "alittlecloser.locations.add",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesHSLocationAddRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesHSLocationAddResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.locations.list": {
+   "id": "alittlecloser.locations.list",
+   "allowGet": true,
+   "parameters": {
+    "apikey": {
+     "type": "string",
+     "format": "int64"
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesHSLocationResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.login": {
+   "id": "alittlecloser.login",
+   "description": "Exposes an API endpoint to query for an upload URL. Args: Returns:",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesLoginRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesLoginResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.search.add": {
+   "id": "alittlecloser.search.add",
+   "parameters": {
+    "resource": {
+     "$ref": "WebAlittlecloserApiMessagesSearchAddRequest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesSearchAddResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.search.delete": {
+   "id": "alittlecloser.search.delete",
+   "parameters": {
+    "search_doc_id": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesSearchDeleteResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alittlecloser.search.query": {
+   "id": "alittlecloser.search.query",
+   "allowGet": true,
+   "parameters": {
+    "blog_title": {
+     "type": "string"
+    },
+    "body": {
+     "type": "string"
+    },
+    "created": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "geo_distance": {
+     "type": "string"
+    },
+    "latitude": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "loc_name": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "string"
+    },
+    "personthing_name": {
+     "type": "string"
+    },
+    "q": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "updated": {
+     "type": "object",
+     "properties": {
+      "milliseconds": {
+       "type": "string",
+       "format": "int64"
+      },
+      "time_zone_offset": {
+       "type": "string",
+       "format": "int64"
+      }
+     }
+    },
+    "user_name": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "WebAlittlecloserApiMessagesSearchResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}

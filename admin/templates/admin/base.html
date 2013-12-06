@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% import 'admin/macros.html' as lib with context %}
+
+{% block header %}
+    <header class="navbar" id="overview">
+        {% block header_title_lead %}
+        <h1>{% block header_title %}{{ app_name }}{% endblock %}</h1>
+        {% endblock %}
+    </header>
+{% endblock %}
+
+{% block navbar %}
+        <div class="navbar navbar-default">
+            <div class="navbar-inner">
+                <a class="navbar-brand" href="{{ uri_for('geochart') }}">Admin {{ app_name }}</a>
+
+                    <ul class="nav navbar-nav">
+                        <li {% if path == uri_for('geochart') %}class="active"{% endif %}><a href="{{ uri_for('geochart') }}">{% trans %}Users Geolocation{% endtrans %}</a></li>
+                        <li {% if path == uri_for('user-list') %}class="active"{% endif %}><a href="{{ uri_for('user-list') }}">{% trans %}User List{% endtrans %}</a></li>
+                        <li {% if path == uri_for('user-list') %}class="active"{% endif %}><a href="{{ uri_for('connection-list') }}">{% trans %}Connection List{% endtrans %}</a></li>
+                        <li {% if path == uri_for('user-list') %}class="active"{% endif %}><a href="{{ uri_for('admin-map') }}">{% trans %}Map{% endtrans %}</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="divider-vertical"></li>
+                        <li><a href="{{ uri_for('admin-logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+                    </ul>
+
+            </div><!-- /navbar-inner -->
+        </div><!-- /navbar -->
+{% endblock %}
+
+{% block subnavbar %}
+{% endblock %}

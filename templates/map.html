@@ -1,0 +1,124 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}
+{% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="/css/MarkerCluster.css" />
+<link rel="stylesheet" href="/css/MarkerCluster.Default.css" />
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="/css/MarkerCluster.Default.ie.css" />
+<![endif]-->
+<script src="/js/leaflet.markercluster.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+
+        <div id="map_spinner" class="container">
+            <div class="row">
+                <img src="/img/spinner.gif">
+            </div>
+        </div>
+<div id="mapcont">
+    <div id='map'></div>
+</div>
+<div>
+    <div id="map_search">
+        <input id="map_search_input" type="text" data-provide="typeahead" data-items="4" autocomplete="off">
+        <div id="search_button_bg"><button id="map_search_button"></button></div>
+    </div>
+</div>
+
+<div id="search_and_results">
+    <div id="map_search_results">
+
+    </div>
+
+    <div id="map_item_results">
+
+    </div>
+</div>
+
+
+
+    {% if user_id %}
+    {% else %}
+    <p></p><!-- /row -->
+
+
+    {% endif %}
+
+{% endblock %}
+
+{% block mediaJS %}
+<script type="text/javascript">
+    var url_vars = location.search.substring(1);
+    alittlecloser.url_vars = url_vars?JSON.parse('{"' + url_vars.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+            function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
+
+    $(document).ready(loadMap(alittlecloser.url_vars));
+</script>
+
+
+
+<script type="text/javascript">
+    $("#map_search_input").keyup(function(e) {
+        addSearchTypeAhead(this.value);
+    });
+</script>
+
+<script>
+    $(document).on('click','.close_modal', function(){
+        $('#map_item_results').empty();
+        $('#map_search_results').empty();
+    });
+
+</script>
+
+
+<script type="text/javascript">window['alittlecloser.connection_list_all'] = alittlecloser.connection_list_all;</script>
+<script src="https://apis.google.com/js/client.js?onload=alittlecloser.connection_list_all"></script>
+<script type="text/javascript">
+    $().ready(function() {
+        $("#form_login_user").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#form_register").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            rules: {
+                password: 'required',
+                c_password: {
+                    required: true,
+                    equalTo: '#password'
+                }
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#password").passStrength({
+            shortPassText: '{% trans %}Short Password{% endtrans %}',
+            badPassText: '{% trans %}Insecure Password{% endtrans %}',
+            goodPassText: '{% trans %}Good Password{% endtrans %}',
+            strongPassText: '{% trans %}Secure Password{% endtrans %}'
+        });
+    });
+</script>
+
+
+{% endblock %}
+

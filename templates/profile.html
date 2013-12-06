@@ -1,0 +1,130 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}{% endblock %}
+
+{% block content %}
+
+    {% if user_id %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-5" id="your_connections">
+        {% trans %}Your Connections{% endtrans %}
+            </div>
+        </div>
+
+    {% else %}
+
+    {% endif %}
+        <div class="row">
+    <div id="connections">
+        <table id="connection_table" class="table">
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+            
+        </table>
+    </div>
+        <div class="col-md-3 col-md-offset-5" id ="loading"><img src="/img/spinner.gif"></div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block mediaJS %}
+    <script type="text/javascript">
+        $().ready(function() {
+            $("#form_login_user").validate({
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                errorPlacement: function(error, element) {
+                    element.parent().parent().addClass("error");
+                    error.addClass("help-inline").appendTo( element.parent() );
+                }
+            });
+
+            $("#form_register").validate({
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                rules: {
+                    password: 'required',
+                    c_password: {
+                        required: true,
+                        equalTo: '#password'
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    element.parent().parent().addClass("error");
+                    error.addClass("help-inline").appendTo( element.parent() );
+                }
+            });
+            
+            $("#password").passStrength({
+                shortPassText: '{% trans %}Short Password{% endtrans %}',
+                badPassText: '{% trans %}Insecure Password{% endtrans %}',
+                goodPassText: '{% trans %}Good Password{% endtrans %}',
+                strongPassText: '{% trans %}Secure Password{% endtrans %}'
+            });
+        });
+    </script>
+    <script>
+        alittlecloser.profile = function()
+        {
+            var callback = function() {
+                gapi.client.alittlecloser.connections.list({'apikey':"{{apikey}}"}).execute(function(resp){
+                    $('#loading').hide()
+                    $('#connection_table').hide()
+                    if (resp.num_of_results != "0"){
+                        $('#connection_table').fadeIn();
+                        $('#your_connections').fadeIn();
+                        for (var i=0,j=resp.connections.length;i<j;i++){
+                            var status = resp.connections[i].connection_stage;
+                            if(status=="0"){
+                                    conn_status="Request Submitted";
+                            }
+                            else if (status=="1"){
+                                    conn_status="Request Will Be Completed";
+                            }
+                            else if (status=="2"){
+                                    conn_status="Request Completed";
+                            }
+                            $('#connection_table').append('<tr><td><a href="/closer/'+resp.connections[i].id+'">'+resp.connections[i].title+'</a></td><td>'+conn_status+'</td><td class="delete_con" id="delete_'+resp.connections[i].id+'"><button type="button"  class="btn btn-default btn-sm">Delete</button></td></tr>')
+                        };
+                    }
+                    else{
+                        $('#connections').append('<div>No Requests</div>')
+                        console.log ("No Results")
+                    }
+                });
+            };
+            gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot)
+
+        }
+    </script>
+    <script>
+        alittlecloser.delete = function(connection_id)
+        {
+            gapi.client.alittlecloser.connections.delete({'apikey':"{{apikey}}",'connection_id':connection_id}).execute(function(resp){
+
+                });
+        };
+    </script>
+    <script>
+        $('#connection_table').on('click','.delete_con', function(){
+            var connection_id = this.id.split("_")[1]
+            gapi.client.alittlecloser.connections.delete({'apikey':"{{apikey}}",'connection_id':connection_id}).execute(function(resp){
+                $('#connection_table').hide();
+                $('#loading').show()
+                location.reload();
+            });
+        });
+
+    </script>
+    <script type="text/javascript">window['alittlecloser.profile'] = alittlecloser.profile;</script>
+    <script src="https://apis.google.com/js/client.js?onload=alittlecloser.profile"></script>
+{% endblock %}
+

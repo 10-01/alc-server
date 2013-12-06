@@ -1,0 +1,12 @@
+#admin_map{
+    height: 100%;
+    width:100%;
+    position: relative;
+}
+
+#admin_map_cont{
+    position: absolute;
+    height: 96%;
+    width:100%;
+    top:40px;
+}

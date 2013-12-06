@@ -1,0 +1,109 @@
+{% extends 'admin/base.html' %}
+
+{% block header_title %}
+{% trans %}Users Geolocation{% endtrans %}
+{% endblock %}
+
+{% block content %}
+<div id="connection_edit">
+    <form>
+        <!--<div class="form-group">-->
+            <!--<label for="title">Title</label>-->
+            <!--<input type="text" class="form-control" id="title" placeholder="Edit Title">-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label for="request">Requested Item</label>-->
+            <!--<input type="text" class="form-control" id="request" placeholder="Edit Request">-->
+        <!--</div>-->
+        <select class="form-control" id="completion_status">
+            <option value ="0">Request Submitted</option>
+            <option value ="1">Request Accepted</option>
+            <option value ="2">Request Completed</option>
+        </select>
+        <h4>Success Teaser:</h4>
+        <div class="editable" id="body_html">
+
+        </div>
+
+        <div class="btn btn-default" id="adminupdatebutton">Submit</div>
+    </form>
+</div>
+        <hr><hr>
+<div id="connection">Connection Preview: Click Media Item to Make it Featured</div>
+
+{% endblock %}
+
+{% block mediaJS %}
+
+<style type="text/css">
+    .secondary_content:hover{
+        opacity: .5;
+    }
+</style>
+
+<script>
+    alittlecloser.closer = function()
+    {
+        var callback = function() {
+            gapi.client.alittlecloser.connection.getdetails({'connection_id':"{{connection_id}}"}).execute(function(resp){
+                connection_drawer(resp);
+            });
+        };
+        gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot)
+
+    }
+</script>
+<script>
+            $("#adminupdatebutton").click(function () {
+
+                var body_div = document.getElementById('body_html');
+                var body = body_div.innerHTML;
+                var connection_stage = $("select#completion_status").val()
+                var apikey = {{apikey}}
+
+                var media = alittlecloser.media_ids.toString();
+
+                var callback = function () {
+                    gapi.client.alittlecloser.connections.update({apikey: apikey, connection_id:'{{connection_id}}',body: body,connection_stage: connection_stage}).execute(function (resp) {
+                                console.log(resp)
+                                if (resp.message=="user can only have 5 pending requests: {{apikey}}"){
+                                    $('#drop_form_header').empty();
+                                    $('#drop_form_header').append('<div>Maximum of 5 requests reached. Go to<a href="/profile">profile</a> to delete others.</div>')
+                                }
+                                else{
+                                    location.reload();
+                                }
+
+                            });
+                };
+                gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
+            });
+</script>
+<script type="text/javascript">window['alittlecloser.closer'] = alittlecloser.closer;</script>
+<script src="https://apis.google.com/js/client.js?onload=alittlecloser.closer"></script>
+
+<script>
+    $(document).on("click", ".secondary_content", function (e) {
+        var primary_media = $(this).attr('data-filename');
+
+        var apikey = {{apikey}}
+
+    var callback = function () {
+        gapi.client.alittlecloser.connections.update({'apikey': apikey, connection_id:'{{connection_id}}','primary_media': primary_media}).execute(function (resp) {
+            console.log(resp)
+            if (resp.message=="user can only have 5 pending requests: {{apikey}}"){
+                $('#drop_form_header').empty();
+                $('#drop_form_header').append('<div>Maximum of 5 requests reached. Go to<a href="/profile">profile</a> to delete others.</div>')
+            }
+            else{
+                location.reload();
+            }
+
+        });
+    };
+    gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
+
+    });
+</script>
+{% endblock %}
+ 

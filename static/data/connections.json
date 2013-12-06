@@ -1,0 +1,48 @@
+{
+    "meta": {
+        "status": 200,
+        "msg": "OK"
+    },
+    "response": {
+        "name": "connections",
+        "connections": [
+            {
+                "title": "BBQ to My Dad",
+                "request_type": "give",
+                "loc_name": "Lawrence, KS",
+                "person_name": "Sarah A.",
+                "person_picture": "/img/person.jpg",
+                "person_id": "99999999",
+                "primary_cont_url": "/img/primary.png",
+                "connection_stage": "1",
+                "blog_url": "http://www.tumblr.com",
+                "summary": "I want to give BBQ to my dad for reason XYZ",
+                "request_date": "August 8, 2014",
+                "completed": "0",
+                "completed_id": "25",
+                "marker_size": "medium",
+                "marker_color": "#f44",
+                "marker_symbol":"bicycle",
+                "date": "2011_02_25 20:27:00 GMT",
+                "timestamp": 1298665620,
+                "imgs": [
+                    "tumblrize",
+                    "milky dog",
+                    "mini comic"
+                ],
+                "map_url": "/map/24",
+                "post_url": "/map/24",
+                "fb_url": "/img/facebook.png",
+                "tweet_url": "/img/twitter.png",
+                "latitude": "_78.25",
+                "longitude": "35.96",
+                "related_post_id": [
+                    "12345678",
+                    "12345676",
+                    "12345679"
+                ]
+            }
+        ],
+        "total_connections": 1
+    }
+}

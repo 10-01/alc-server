@@ -1,0 +1,38 @@
+{% extends 'admin/base.html' %}
+
+{% block header_title %}
+{% trans %}Users Geolocation{% endtrans %}
+{% endblock %}
+
+{% block content %}
+<div id="connection_holder"></div>
+{% endblock %}
+
+{% block mediaJS %}
+
+
+<script>
+    alittlecloser.connections_admin = function(){
+        var callback = function() {
+            gapi.client.alittlecloser.connections.list().execute(function(resp){
+                console.log(resp)
+                alittlecloser.drawconnections_admin(resp)
+            });
+        };
+        gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
+    };
+
+
+    alittlecloser.drawconnections_admin = function(resp){
+        for (var i=0,j=resp.connections.length;i<j;i++){
+            if (resp.connections[i].title){
+                $('#connection_holder').append($('<div/>', {'class': 'connection_listing', 'id': resp.connections[i].id, html: $('<a/>', {href: '/admin/connection/' + resp.connections[i].id, html: $('<h4>'+ resp.connections[i].title +'</h4>')})}));
+            };
+        };
+    };
+
+</script>
+<script type="text/javascript">window['alittlecloser.connections_admin'] = alittlecloser.connections_admin;</script>
+<script src="https://apis.google.com/js/client.js?onload=alittlecloser.connections_admin"></script>
+{% endblock %}
+

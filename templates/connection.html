@@ -1,0 +1,107 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}{% endblock %}
+
+{% block content %}
+
+<div class="container" id="loading_div">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-5" id ="loading"><img src="/img/spinner.gif"></div>
+    </div>
+</div>
+
+<div id="connection">
+
+</div>
+
+<div id="connection_comments" class="container">
+    {% if user_id %}
+    <form role="form">
+        <div class="form-group">
+            <textarea class="form-control" id="commentTextArea" rows="1" placeholder="Add a comment"></textarea>
+        </div>
+        <button id="add_comment" class="btn btn-default">Add Comment</button>
+    </form>
+
+    {% else %}
+    <h4>Sign in to add comments</h4>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+{% block mediaJS %}
+<script type="text/javascript">
+    $().ready(function() {
+        $("#form_login_user").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#form_register").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            rules: {
+                password: 'required',
+                c_password: {
+                    required: true,
+                    equalTo: '#password'
+                }
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#password").passStrength({
+            shortPassText: '{% trans %}Short Password{% endtrans %}',
+            badPassText: '{% trans %}Insecure Password{% endtrans %}',
+            goodPassText: '{% trans %}Good Password{% endtrans %}',
+            strongPassText: '{% trans %}Secure Password{% endtrans %}'
+        });
+    });
+</script>
+<script>
+    alittlecloser.closer = function()
+    {
+        var callback = function() {
+            gapi.client.alittlecloser.connection.getdetails({'connection_id':"{{connection_id}}"}).execute(function(resp){
+                connection_drawer(resp);
+                $('#connection_comments').fadeIn();
+            });
+            gapi.client.alittlecloser.comments.list({'connection_id':"{{connection_id}}"}).execute(function(resp){
+                for (var i=0,j=resp.comments.length;i<j;i++){
+                    $('#connection_comments').append('<div class="row" style="padding-top: 5px;"><div class="col-xs-1 col-md-1 username_comment">'+resp.comments[i].user_name+':</div><div class="col-xs-9 col-md-9 comment_text"> '+resp.comments[i].body+'</div></div>');
+                    $('#connection_comments').append('<hr>')
+                };
+            });
+        };
+        gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot)
+
+    }
+</script>
+{% if user_id %}
+<script>
+    $('#add_comment').click(function(){
+        var comment_body = $("textarea#commentTextArea").val();
+        var apikey = {{apikey}};
+        gapi.client.alittlecloser.comments.add({apikey: apikey, body:comment_body,'connection_id':"{{connection_id}}"}).execute(function(resp){
+            connection_drawer(resp);
+        });
+    });
+
+</script>
+{% endif %}
+
+<script type="text/javascript">window['alittlecloser.closer'] = alittlecloser.closer;</script>
+<script src="https://apis.google.com/js/client.js?onload=alittlecloser.closer"></script>
+{% endblock %}
+

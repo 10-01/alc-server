@@ -1,0 +1,82 @@
+{% extends base_layout %}
+
+{% block header_title_lead %}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="bl-box" id="blog_link">
+</div>
+<div class="bl-content">
+
+    <div id="blog_holder">
+
+    </div>
+    <div id="current_tag"></div>
+    <div id="end_posts"></div>
+</div>
+<span class="bl-icon bl-icon-close" id="blog_close"></span>
+
+{% endblock %}
+
+{% block mediaJS %}
+<script type="text/javascript">
+    $().ready(function() {
+        $("#form_login_user").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#form_register").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            rules: {
+                password: 'required',
+                c_password: {
+                    required: true,
+                    equalTo: '#password'
+                }
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#password").passStrength({
+            shortPassText: '{% trans %}Short Password{% endtrans %}',
+            badPassText: '{% trans %}Insecure Password{% endtrans %}',
+            goodPassText: '{% trans %}Good Password{% endtrans %}',
+            strongPassText: '{% trans %}Secure Password{% endtrans %}'
+        });
+    });
+</script>
+
+<script>
+
+        $("#blog_holder").append('<div class="container" id="loading_div"><div class="row"><div class="col-md-3 col-md-offset-5" id ="loading"><img src="/img/spinner.gif"></div></div></div>');
+        var limit = 10;
+        $.ajax({
+            type: 'GET',
+            url: '/blog_json', // or your absolute-path
+            data: '&limit=' + limit,
+            dataType: 'json',
+            complete: function (resp) {
+                var json_object = jQuery.parseJSON(resp.responseText);
+                $("#blog_holder").empty()
+                parse_blog(json_object)
+
+            }
+        });
+
+
+</script>
+{% endblock %}
+
