@@ -40,6 +40,7 @@ _routes = [
     RedirectRoute('/api/v1/connection', handlers.ConnectionApiHandler, name='connection', strict_slash=True),
     RedirectRoute('/fileupload', handlers.MediaUploadHandler, name='fileupload', strict_slash=True),
     RedirectRoute('/blobserve/<media_key>', handlers.GetMediaHandler, name='blobupload', strict_slash=True),
+    RedirectRoute('/mc', handlers.MailchimpUserHandler, name='mailchimp', strict_slash=True),
 
     RedirectRoute('/', handlers.HomeRequestHandler, name='home', strict_slash=True)
 ]

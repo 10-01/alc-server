@@ -1,5 +1,7 @@
 from webapp2_extras.appengine.auth.models import User
 from google.appengine.ext import ndb
+from google.appengine.ext.ndb import msgprop
+from web.alittlecloser_api_messages import MediaJsonFinalResponse
 import json
 
 from alittlecloser_api_messages import ConnectionResponseMessage, SingleConnectionReponseMessage, CommentsResponseMessage, MediaJsonFinalResponse, LatLngMessage
@@ -235,7 +237,8 @@ class Connection(ndb.Model):
     personthing_key = ndb.KeyProperty()
     #name of person receiving item
     personthing_name = ndb.StringProperty()
-
+    # media binary for api
+    media_binary = msgprop.MessageProperty(MediaJsonFinalResponse, repeated=True)
 
     def to_message(self, media_response):
         """Turns the Connection entity into a ProtoRPC object.
@@ -278,6 +281,48 @@ class Connection(ndb.Model):
                                          created = self.created,
                                          updated = self.updated,
                                          id = self.key.id())
+
+    def to_message_no_media(self):
+        """Turns the Connection entity into a ProtoRPC object.
+        """
+        if self.personthing_key:
+            self.personthing_id = str(self.personthing_key.id())
+        else:
+            self.personthing_id = ""
+
+        if self.user_key:
+            self.user_id = self.user_key.id()
+        else:
+            self.user_id = None
+
+
+
+        return ConnectionResponseMessage(title = self.title,
+                                         type = self.type,
+                                         blog_url=self.blog_url,
+                                         completed = self.completed,
+                                         completion_date = self.completion_date,
+                                         connection_stage = self.connection_stage,
+                                         connection_type = self.connection_type,
+                                         latitude = self.latitude,
+                                         longitude = self.longitude,
+                                         loc_name = self.loc_name,
+                                         marker_color = self.marker_color,
+                                         marker_size = self.marker_size,
+                                         marker_symbol = self.marker_symbol,
+                                         user_id =  self.user_id,
+                                         user_name =  self.user_name,
+                                         user_picture = self.user_picture,
+                                         personthing_id = self.personthing_id,
+                                         personthing_name = self.personthing_name,
+                                         primary_media = self.primary_media,
+                                         summary = self.summary,
+                                         req_reason = self.request_reason,
+                                         social_media_json = self.social_media_json,
+                                         created = self.created,
+                                         updated = self.updated,
+                                         id = self.key.id())
+
 
     def to_indiv_message(self,media_response):
         """Turns the Connection entity into a ProtoRPC object.

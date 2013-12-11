@@ -5,9 +5,10 @@ from lib import utils
 from google.appengine.ext import endpoints
 import logging
 import json
+from json.decoder import WHITESPACE
 import config
 import os
-import webapp2
+from google.appengine.api import memcache
 
 
 
@@ -174,7 +175,8 @@ class ALittleCloserApi(ALittleCloserBaseService):
             filter_dict['connection_type'] = request.connection_type
 
         if request.loc_name:
-            filter_dict['loc_name'] = request.loc_name
+            if request.loc_name != "all":
+                filter_dict['loc_name'] = request.loc_name
 
         if request.user_name:
             filter_dict['user_name'] = request.user_name
@@ -188,88 +190,18 @@ class ALittleCloserApi(ALittleCloserBaseService):
         if request.personthing_id:
             filter_dict['personthing_key'] = PeopleThing.get_by_id(request.personthing_id).key
 
-
         self.all_connections, next_curs, more_results = Connection.get_connections(self.curs, request.limit, filter_dict)
+
+
         connects = []
+
         for entity in self.all_connections:
-            if entity.media.startswith('{"filename":'):
-                result_list = entity.media.split('{"filename":')
-                self.media_response_full = []
-                for media_list_item in result_list:
-                    if media_list_item != "":
-                        try:
-                            if media_list_item[-1:] == ",":
-                                self.json_loads = json.loads('{"filename":'+media_list_item[:-1])
-                            else:
-                                self.json_loads = json.loads('{"filename":'+media_list_item)
+            if request.loc_name != "all":
+                self.connection_response = entity.to_message(entity.media_binary)
 
-                            self.media_response = []
-                            self.filename = self.json_loads['filename']
-                            for media_item in self.json_loads['results']:
-                                self.media_response.append(MediaJsonMessage(width = int(media_item['width']),
-                                                                            height = int(media_item['height']),
-                                                                            filetype = media_item['filetype'],
-                                                                            file_cat = media_item['file_cat'],
-                                                                            blob_key = images.get_serving_url(media_item['blobstore_key'])))
-                            self.media_response_full.append(MediaJsonFinalResponse(media_item_message=self.media_response,
-                                                                                   filename = self.filename))
-                        except:
-                            if media_list_item[-1:] == ",":
-                                self.json_loads = json.loads(media_list_item[:-1])
-                            else:
-                                self.json_loads = json.loads(media_list_item)
-
-                            self.media_response = []
-                            self.filename = self.json_loads['filename']
-                            for media_item in self.json_loads['results']:
-                                self.media_response.append(MediaJsonMessage(width = int(media_item['width']),
-                                                                            height = int(media_item['height']),
-                                                                            filetype = media_item['filetype'],
-                                                                            file_cat = media_item['file_cat'],
-                                                                            blob_key = images.get_serving_url(media_item['blobstore_key'])))
-                            self.media_response_full.append(MediaJsonFinalResponse(media_item_message=self.media_response,
-                                                                                   filename = self.filename))
             else:
-                result_list = entity.media.split('{"results":')
-                self.media_response_full = []
-                for media_list_item in result_list:
-                    if media_list_item != "":
-                        try:
-                            if media_list_item[-1:] == ",":
-                                self.json_loads = json.loads('{"results":'+media_list_item[:-1])
-                            else:
-                                self.json_loads = json.loads('{"results":'+media_list_item)
-
-                            self.media_response = []
-                            self.filename = self.json_loads['filename']
-                            for media_item in self.json_loads['results']:
-                                self.media_response.append(MediaJsonMessage(width = int(media_item['width']),
-                                                                            height = int(media_item['height']),
-                                                                            filetype = media_item['filetype'],
-                                                                            file_cat = media_item['file_cat'],
-                                                                            blob_key = images.get_serving_url(media_item['blobstore_key'])))
-                            self.media_response_full.append(MediaJsonFinalResponse(media_item_message=self.media_response,
-                                                                                   filename = self.filename))
-                        except:
-                            if media_list_item[-1:] == ",":
-                                self.json_loads = json.loads(media_list_item[:-1])
-                            else:
-                                self.json_loads = json.loads(media_list_item)
-
-                            self.media_response = []
-                            self.filename = self.json_loads['filename']
-                            for media_item in self.json_loads['results']:
-                                self.media_response.append(MediaJsonMessage(width = int(media_item['width']),
-                                                                            height = int(media_item['height']),
-                                                                            filetype = media_item['filetype'],
-                                                                            file_cat = media_item['file_cat'],
-                                                                            blob_key = images.get_serving_url(media_item['blobstore_key'])))
-                            self.media_response_full.append(MediaJsonFinalResponse(media_item_message=self.media_response,
-                                                                                   filename = self.filename))
-
-            self.connection_response = entity.to_message(self.media_response_full)
+                self.connection_response = entity.to_message_no_media()
             connects.append(self.connection_response)
-
 
         if more_results is True:
             self.cursor=next_curs.urlsafe()
@@ -320,8 +252,8 @@ class ALittleCloserApi(ALittleCloserBaseService):
         if self.model_current_posts and len(self.model_current_posts) > 4:
             return ConnectionAddResponse(message="user can only have 5 pending requests: %s" % request.apikey)
 
-        if len(Connection.get_connection_by_title(request.title)) > 0:
-            return ConnectionAddResponse(message="title already exists %s" % request.title)
+        # if len(Connection.get_connection_by_title(request.title)) > 0:
+        #     return ConnectionAddResponse(message="title already exists %s" % request.title)
 
         if request.personthing_id:
             self.personthing_model = PeopleThing.get_person_by_id(request.personthing_id)
@@ -340,6 +272,20 @@ class ALittleCloserApi(ALittleCloserBaseService):
 
         if request.media:
             new_connection.media = request.media
+            # Add the API object for the media
+            self.media_response_full = []
+            self.json_gen = self.iterload(request.media)
+            self.media_response = []
+            for media_item in self.json_gen['results']:
+                self.media_response.append(MediaJsonMessage(width = int(media_item['width']),
+                                                            height = int(media_item['height']),
+                                                            filetype = media_item['filetype'],
+                                                            file_cat = media_item['file_cat'],
+                                                            blob_key = images.get_serving_url(media_item['blobstore_key'])))
+            self.media_response_full.append(MediaJsonFinalResponse(media_item_message=self.media_response,
+                                                                   filename = self.json_gen['filename']))
+            new_connection.media_binary = self.media_response_full
+
 
         if request.latitude and request.longitude:
             #temporarily storing as lat, lng, and geopt because I am unsure of how to interact with it later
@@ -356,6 +302,10 @@ class ALittleCloserApi(ALittleCloserBaseService):
         new_connection.personalized_message = request.personalized_message
         new_connection.uastring = self.header_dict['user-agent']
         new_connection.ip = self.request_state.remote_address
+
+
+
+
         new_connection_key = new_connection.put()
 
         search_document_dictionary['type'] = request.type
@@ -827,8 +777,8 @@ class ALittleCloserApi(ALittleCloserBaseService):
 
         self.header_dict = self.parse_header(self.request_state.headers._headers)
 
-        if len(Connection.get_connection_by_title(request.title)) > 0:
-            return CommentsAddResponse(message="title already exists %s" % request.title)
+        # if len(Connection.get_connection_by_title(request.title)) > 0:
+        #     return CommentsAddResponse(message="title already exists %s" % request.title)
 
         if request.personthing_id:
             self.personthing_model = PeopleThing.get_person_by_id(request.personthing_id)
@@ -960,6 +910,21 @@ class ALittleCloserApi(ALittleCloserBaseService):
             return response.content
         raise Exception("Call failed. Status code %s. Body %s",
                         response.status_code, response.content)
+
+    def iterload(self, string_or_fp, cls=json.JSONDecoder, **kwargs):
+        if isinstance(string_or_fp, file):
+            string = string_or_fp.read()
+        else:
+            string = str(string_or_fp)
+
+        decoder = cls(**kwargs)
+        idx = WHITESPACE.match(string, 0).end()
+        while idx < len(string):
+            obj, end = decoder.raw_decode(string, idx)
+            # yield obj
+            return obj
+            idx = WHITESPACE.match(string, end).end()
+
 
 APPLICATION = endpoints.api_server([ALittleCloserApi],
                                    restricted=False)

@@ -946,6 +946,15 @@ class AccountActivationHandler(BaseHandler):
             # Delete token
             models.User.delete_auth_token(user_id, token)
 
+            #Add user to Mailchimp list
+            self.form_fields = {
+                "email": user.email,
+                "function": 'trial_add',
+                "ip": user.ip
+            }
+
+            taskqueue.add(url='/mc', params=self.form_fields)
+
             message = _('Congratulations, Your account <strong>{}</strong> has been successfully activated.').format(
                 user.username)
             self.add_message(message, 'success')
@@ -1557,7 +1566,7 @@ class MediaUploadHandler(BaseHandler):
         self.orig_filename = self.filename
         self.mime_type = self.fileupload.type
 
-        self.image_widths = ['100','320','640','1600']
+        self.image_widths = ['100','320','640','1200']
         #The list that is returned
         self.image_list = []
         if self.mime_type == "image/jpeg" or self.mime_type == "image/png":
@@ -1797,6 +1806,56 @@ class BlogRetrieverHandler(BaseHandler):
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps(out_json['response']['posts']))
 
+class MailchimpUserHandler(BaseHandler):
+    def post(self):
+        groupings = []
+        email = self.request.get('email')
+        opt_in_ip = self.request.get('ip')
+        first_name = self.request.get('fname')
+        last_name = self.request.get('lname')
+        opt_in_time = self.request.get('time')
+        mc_function = self.request.get('function')
+        mc_url = self.app.config.get('mailchimp_post_url')
+        mc_list_id = self.app.config.get('mailchimp_list')
+        mc_apikey = self.app.config.get('mailchimp_api_key')
+        if mc_function == "trial_add":
+            groupings.append(self.app.config.get('mailchimp_segment_trial'))
+
+            form_fields = {}
+            merge_vars = {}
+
+            email_dict = {}
+            email_dict['email'] = email
+
+            groupings = []
+            group_id = {}
+            group_id['name'] = self.app.config.get('mailchimp_group_name')
+            group_id['groups'] = ['ALC User']
+            groupings.append(group_id)
+            merge_vars['groupings'] = groupings
+
+            if first_name:
+                merge_vars['FNAME'] = first_name
+            if last_name:
+                merge_vars['LNAME'] = first_name
+
+            form_fields['apikey'] = mc_apikey
+            form_fields['id'] = mc_list_id
+            form_fields['double_optin'] = False
+            form_fields['email']= email_dict
+            form_fields['merge_vars'] = merge_vars
+
+            form_data = json.dumps(form_fields)
+
+            result = urlfetch.fetch(url=mc_url+"/lists/subscribe",
+                                    payload=form_data,
+                                    method=urlfetch.POST,
+                                    headers={})
+
+            self.return_json ={}
+            self.return_json['message'] = "Success"
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(json.dumps(self.return_json))
 
 class HomeRequestHandler(RegisterBaseHandler):
     """

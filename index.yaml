@@ -24,6 +24,12 @@ indexes:
 
 - kind: Connection
   properties:
+  - name: loc_name
+  - name: created
+    direction: desc
+
+- kind: Connection
+  properties:
   - name: title
   - name: user_name
   - name: created

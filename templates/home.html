@@ -5,12 +5,30 @@
 {% block content %}
 <div id="header">
     <div class="row">
-        <div class="col-xs-12 col-md-6 col-md-offset-1">
+        <div class="col-xs-12 col-md-12">
             <div class="white_text">a little closer</div>
         </div>
     </div>
     <div class="row header_row">
-        <div class="col-xs-12 col-md-6 col-md-offset-1">
+        <div class="col-md-12 col-xs-12 signup_form">
+            <div class="signup">
+                    <form id="form_register" action="{{ uri_for("register") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                    <input class="focused required form-control" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
+                    <input class="focused required email form-control" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
+                    <input type="hidden" name="country" value="">
+                    <input class="focused required form-control" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                    <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
+                    <div class="control-group">
+                        <input type="hidden" name="country">
+                        <input type="hidden" name="tz">
+                        <button type="submit" class="btn btn-danger" id="signup_user_sub">{% trans %}Sign Up, Forever Free{% endtrans %}</button>
+                    </div>
+                    </form>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-md-12">
             <div class="red_text">Narrowing the distance</div>
             <div class="blue_text">between you and those you care about</div>
         </div>
@@ -29,7 +47,7 @@
         <div class="col-xs-12 col-md-3">
             <div>
                 <div class="red_text">Locate</div>
-                <p class="descriptor">Check the map to see if we’re near a loved one.</p>
+                <p class="descriptor">Choose the location of a loved one whom you'd like us to surprise with an unexpected gift</p>
             </div>
 
         </div>
@@ -52,12 +70,12 @@
     </div>
 
     <!--one liner description-->
-    <div class="row" id="one_liner_desc">
-        <div class="col-xs-12 col-md-12">
-            We are traveling the
-            country, helping connect distance-challenged people.
-        </div>
-    </div>
+    <!--<div class="row" id="one_liner_desc">-->
+        <!--<div class="col-xs-12 col-md-12">-->
+            <!--We are traveling the-->
+            <!--country, helping connect distance-challenged people.-->
+        <!--</div>-->
+    <!--</div>-->
     <!--large description two bullets-->
     <div class="row" id="two_bullets_desc">
         <div class="col-xs-12 col-md-12">

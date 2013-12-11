@@ -179,15 +179,16 @@ $alc_darkblue: #72cbd0;
 
 .red_text{
   color: $alc_red;
-  font-size: 3.0em;
+  font-size: 2.5em;
   font-style: normal;
   font-weight: 200;
+  margin-top: 40px;
 
 }
 
 .blue_text{
   color: $alc_gray;
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-style: normal;
   font-weight: 200;
 }
@@ -1276,11 +1277,29 @@ $alc_darkblue: #72cbd0;
   color:$alc_darkblue;
 }
 
+#form_on_connection{
+ display: none;
+ }
+
+
 #your_connections{
   color: $alc_green;
   padding-bottom: 20px;
   font-size: 1.5em;
   display: none;
+  font-family: "proxima-nova",sans-serif;
+}
+
+#sign_in_to_comment{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: 300px;
+}
+
+#comment_title_sign{
+  color: $alc_darkblue;
+  font-size: 1.3em;
   font-family: "proxima-nova",sans-serif;
 }
 
@@ -1292,18 +1311,27 @@ $alc_darkblue: #72cbd0;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  text-align: center;
 }
 
 .header_row{
-  padding-top:100px;
+  padding-top:60px;
 
 }
 
+#form_register{
+  max-width: 400px;
+  text-align: center;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+
 .white_text{
   font-weight: 100;
-  font-size: 6em;
+  font-size: 5.0em;
   color:white;
-  margin-top: 200px;
+  margin-top: 140px;
 }
 
 #loading_map{

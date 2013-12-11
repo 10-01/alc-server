@@ -40,7 +40,7 @@ alittlecloser.extend_connections = function(cursor){
 alittlecloser.drawconnections = function(resp){
     for (var i=0,j=resp.connections.length;i<j;i++){
         if (resp.connections[i].title){
-            $('#connection_holder').append($('<div/>', {'class': 'row', html: $('<div/>', {'class': 'col-md-12 col-xs-12 connection_item', html: $('<div/>', {'class': 'connection_listing', 'id': resp.connections[i].id, html: $('<a/>', {href: '/closer/' + resp.connections[i].id, html: $('<img class="col-md-12 col-xs-12" src="'+resp.connections[i].media[0].media_item_message[3].blob_key+'=s1280" alt="Primary Image"> ')})})})}));
+            $('#connection_holder').append($('<div/>', {'class': 'row', html: $('<div/>', {'class': 'col-md-12 col-xs-12 connection_item', html: $('<div/>', {'class': 'connection_listing', 'id': resp.connections[i].id, html: $('<a/>', {href: '/closer/' + resp.connections[i].id, html: $('<img class="col-md-12 col-xs-12" src="'+resp.connections[i].media[0].media_item_message[3].blob_key+'=s1171" alt="Primary Image"> ')})})})}));
 
             $('#'+resp.connections[i].id).append('<a href="/closer/'+resp.connections[i].id+'"><p class="item_title_conn">'+resp.connections[i].title+'</p></a>');
             $('#'+resp.connections[i].id).append('<div class="item_header_conn"></d>');
@@ -251,7 +251,7 @@ gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
 alittlecloser.connection_list_all = function(){
     $('#map_spinner').show();
     var callback = function() {
-        gapi.client.alittlecloser.connections.list({"limit":"400"}).execute(function(resp){
+        gapi.client.alittlecloser.connections.list({"limit":"400","loc_name":"all"}).execute(function(resp){
             alittlecloser.markers = new L.MarkerClusterGroup();
             $('#map_spinner').fadeOut();
             for (var i=0,j=resp.connections.length;i<j;i++){
@@ -399,7 +399,7 @@ function connection_drawer(resp)
             if(resp.connection.media[i].media_item_message[0].file_cat==="image"){
                 $('#connection_cont').append('<div class="row" id="big_row" ></div>');
                 $('#big_row').append('<div class="col-md-12 col-xs-12 connect_holder"></div>');
-                $('.connect_holder').append('<img class="col-md-12 col-xs-12"  data-filename="'+resp.connection.media[i].filename+'" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1280" alt="Smiley face">');
+                $('.connect_holder').append('<img class="col-md-12 col-xs-12"  data-filename="'+resp.connection.media[i].filename+'" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1171" alt="Smiley face">');
                 $('.connect_holder').append('<a><p class="item_title_conn">'+resp.connection.title+'</p></a>');
                 $('.connect_holder').append('<div class="item_header_conn"></d>');
                 $('.connect_holder').append('<div class="stage">');
@@ -451,7 +451,7 @@ function connection_drawer(resp)
         }
         else{
             if(resp.connection.media[i].media_item_message[0].file_cat==="image"){
-                $('#connection_cont').append('<div class="row support_image" data-filename="'+resp.connection.media[i].filename+'"><img class="col-md-12 col-xs-12" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1280" alt="Smiley face"></div>');
+                $('#connection_cont').append('<div class="row support_image" data-filename="'+resp.connection.media[i].filename+'"><img class="col-md-12 col-xs-12" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1171" alt="Smiley face"></div>');
             }
         }
     }

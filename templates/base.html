@@ -77,13 +77,13 @@
             <div class="navbar-inner">
                 <a class="navbar-brand" id="nav_img_space" href="/"><img id="nav_logo" src="/img/alc_final_rv_text.png"></a>
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ uri_for("connections") }}">Connections</a></li>
-                    <li><a href="{{ uri_for("map") }}">Map</a></li>
-                    <li><a href="{{ uri_for("blog") }}">Blog</a></li>
+                    <li {% if path == uri_for("connections") %} class="active"{% endif %}><a href="{{ uri_for("connections") }}">Connections</a></li>
+                    <li {% if path == uri_for("map") %} class="active"{% endif %}><a href="{{ uri_for("map") }}">Map</a></li>
+                    <li {% if path == uri_for("blog") %} class="active"{% endif %}><a href="{{ uri_for("blog") }}">Blog</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a data-toggle="modal" href="#addConnectionModal"><span style="margin-right: 10px;" class="glyphicon glyphicon-plus"></span>Add Connection</a></li>
                     {% if user_id %}
+                    <li><a data-toggle="modal" href="#addConnectionModal"><span style="margin-right: 10px;" class="glyphicon glyphicon-plus"></span>Add Connection</a></li>
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ username }} <b class="caret"></b></a>
@@ -98,20 +98,21 @@
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Login{% endtrans %} <b class="caret"></b></a>
-                        <div class="dropdown-menu well">
+                        <div class="dropdown-menu well" style="width: 250px;">
                             <form id="form_login_user" action="{{ uri_for("login") }}" method="post" class="auth-at-dropdown">
                                 <fieldset>
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="continue_url" value="{{ path }}">
                                     <div class="control-group">
                                         <label class="login_text" for="l_username">{% trans %}Username or Email{% endtrans %}:</label>
                                         <div class="controls">
-                                            <input class="input-xlarge focused required" id="l_username" name="username" type="text" value="">
+                                            <input class="input-xlarge focused required form-control" id="l_username" name="username" type="text" value="">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="login_text" for="l_password">{% trans %}Password{% endtrans %}:</label>
                                         <div class="controls">
-                                            <input class="input-xlarge focused required" id="l_password" name="password" type="password" value="">
+                                            <input class="input-xlarge focused required form-control" id="l_password" name="password" type="password" value="">
                                         </div>
                                     </div>
                                     <div class="control-group row">
@@ -151,29 +152,29 @@
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                             <div class="control-group">
                                 <label class="controls">
-                                    <input class="focused required" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
+                                    <input class="focused required form-control"  name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
                                 </label>
                             </div>
                             <div class="control-group">
                                 <label class="controls">
-                                    <input class="focused required email" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
+                                    <input class="focused required email form-control" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
                                     <input type="hidden" name="country" value="">
                                 </label>
                             </div>
                             <div class="control-group">
                                 <label class="controls">
-                                    <input class="focused required" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                                    <input class="focused required form-control" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
                                 </label>
                             </div>
                             <div class="control-group">
                                 <label class="controls">
-                                    <input class="focused required" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
+                                    <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
                                 </label>
                             </div>
                             <div class="control-group">
                                 <input type="hidden" name="country">
                                 <input type="hidden" name="tz">
-                                <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
+                                <button type="submit" class="btn btn-danger">{% trans %}Sign Up{% endtrans %}</button>
                             </div>
                         </form>
                     </div>
@@ -235,7 +236,7 @@
                         <div id="submit_nav">
                             <div id="dropzoneback"><button type="button" class="btn btn-default btn-sm">Back</button></div>
                             <p class="form-text" id="drop_form_header">Please Add At Least One Related Photo</p>
-                            <div id="givegetsubmitarea"><button disabled="disabled" id="add_submit_button" type="button" class="btn btn-primary btn-sm">Submit</button></div>
+                            <div id="givegetsubmitarea"><button disabled="disabled" id="add_submit_button" type="button" data-loading-text="Submitting..." class="btn btn-primary btn-sm">Submit</button></div>
                         </div>
                     </div>
 
@@ -327,6 +328,8 @@
     <script type="text/javascript">
         $("#givegetsubmitarea").click(function () {
             if (alittlecloser.upload_int > 1){
+            $("#add_submit_button").attr("disabled", "disabled");
+
             var form_data = document.forms["add_connection_field"].elements;
 
             var type = "give";

@@ -24,7 +24,43 @@
     </form>
 
     {% else %}
-    <h4>Sign in to add comments</h4>
+    <div id="sign_in_to_comment">
+            <div>
+            <div id="comment_title_sign">Sign in to add comments</div>
+                <div id="form_on_connection">
+            <form id="form_login_user" action="{{ uri_for("login") }}" method="post" class="auth-at-dropdown">
+            <fieldset>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="continue_url" value="{{ path }}">
+                <div class="control-group">
+                    <label class="login_text" for="l_username">{% trans %}Username or Email{% endtrans %}:</label>
+                    <div class="controls">
+                        <input class="input-xlarge focused required form-control" id="l_username" name="username" type="text" value="">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="login_text" for="l_password">{% trans %}Password{% endtrans %}:</label>
+                    <div class="controls">
+                        <input class="input-xlarge focused required form-control" id="l_password" name="password" type="password" value="">
+                    </div>
+                </div>
+                <div class="control-group row">
+                    <label class="checkbox col-xs-12 login_text hidden">
+                        <input type="checkbox" name="remember_me " id="remember_me"  value="on" style="margin-left: -5px;margin-right: 3px;">
+                        {% trans %}Remember me?{% endtrans %}
+                    </label>
+                    <div class="col-xs-12">
+                        <button style="padding-top: 5px;" type="submit" class="btn btn-default btn-small btn-login">{% trans %}Login{% endtrans %}</button>
+                        <a href="#signUpModal" class="login_text_signup" role="button" style="margin-left: 25px;margin-bottom: 20px;"  data-toggle="modal">Sign Up</a>
+                    </div>
+                </div>
+
+                {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
+            </fieldset>
+            </form>
+                </div>
+        </div>
+    </div>
     {% endif %}
 </div>
 
@@ -100,6 +136,12 @@
 
 </script>
 {% endif %}
+<script>
+    $(document).on('click','#comment_title_sign' ,function(){
+            $('#comment_title_sign').hide();
+            $('#form_on_connection').fadeIn();
+    })
+</script>
 
 <script type="text/javascript">window['alittlecloser.closer'] = alittlecloser.closer;</script>
 <script src="https://apis.google.com/js/client.js?onload=alittlecloser.closer"></script>
