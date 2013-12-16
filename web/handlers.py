@@ -1716,6 +1716,15 @@ class MobileHandler(BaseHandler):
         params = {}
         return self.render_template('mobile.html', **params)
 
+class EulaHandler(BaseHandler):
+    """
+    Handler for requesting successful connection information
+    """
+
+    def get(self):
+        """ Returns a simple HTML form for home """
+        params = {}
+        return self.render_template('eula.html', **params)
 
 class ProfileHandler(BaseHandler):
     """
