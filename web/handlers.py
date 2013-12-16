@@ -1726,6 +1726,16 @@ class EulaHandler(BaseHandler):
         params = {}
         return self.render_template('eula.html', **params)
 
+class PaymentHandler(BaseHandler):
+    """
+    Handler for requesting successful connection information
+    """
+
+    def get(self):
+        """ Returns a simple HTML form for home """
+        params = {}
+        return self.render_template('payment.html', **params)
+
 class ProfileHandler(BaseHandler):
     """
     Handler for requesting successful connection information

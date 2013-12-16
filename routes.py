@@ -35,6 +35,8 @@ _routes = [
     RedirectRoute('/blog', handlers.BlogHandler, name='blog', strict_slash=True),
     RedirectRoute('/mobile', handlers.MobileHandler, name='mobile', strict_slash=True),
     RedirectRoute('/eula', handlers.EulaHandler, name='eula', strict_slash=True),
+    RedirectRoute('/payment', handlers.PaymentHandler, name='payment', strict_slash=True),
+
 
     RedirectRoute('/blog_json', handlers.BlogRetrieverHandler, name='blog_retreive', strict_slash=True),
 

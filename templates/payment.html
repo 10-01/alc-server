@@ -1,0 +1,42 @@
+{% extends base_layout %}
+
+{% block title %}
+{% trans %}Contact{% endtrans %} - {{app_name}}
+{% endblock %}
+{% block header_title %}
+
+{% endblock %}
+
+{% block content %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<div class="col-md-6 col-md-offset-3 col-xs-12">
+
+    <button id="customButton">Purchase</button>
+
+</div>
+{% endblock %}
+
+{% block mediaJS %}
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_9aJkN4Gxmr23OfpO2u25dzoP',
+        image: '/img/logo_large.png',
+        token: function(token, args) {
+            // Use the token to create the charge with a server-side script.
+        }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options
+        handler.open({
+            name: 'a little closer',
+            description: 'Donation For Gift',
+            amount: 2000
+        });
+        e.preventDefault();
+    });
+</script>
+
+
+{% endblock %}
+

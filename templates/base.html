@@ -15,7 +15,7 @@
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
     {% if is_mobile %}
     <meta http-equiv="refresh" content="0; url=/mobile" />
     {% endif %}
@@ -40,6 +40,8 @@
     <!--fonts-->
     <!--<script type="text/javascript" src="//use.typekit.net/uti0ulz.js"></script>-->
     <!--<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
+    <script type="text/javascript" src="//use.typekit.net/uti0ulz.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     {% block mediaCSS %}{% endblock %}
     {% block head %}{% endblock %}
@@ -90,6 +92,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ uri_for("profile") }}">{% trans %}My Profile{% endtrans %}</a></li>
                             <li><a href="{{ uri_for("edit-profile") }}">{% trans %}Edit Profile{% endtrans %}</a></li>
+                            <li><a href="{{ uri_for("contact") }}">{% trans %}Contact Us{% endtrans %}</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ logout_url }}">{% trans %}Logout{% endtrans %}</a></li>
                         </ul>

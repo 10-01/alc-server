@@ -57,19 +57,25 @@ $alc_darkblue: #72cbd0;
     font-weight: 100;
     text-align: center;
   }
-  #whoare{
-    color: $alc_red;
-    font-size: 2em;
-    font-style: normal;
-    font-weight: 100;
-  }
+
   .bio_pic{
-    width: 80%;
-    padding-left: 20%;
+    width: 60%;
+    padding-left: 0%;
     padding-top: 20px;
     padding-bottom: 20px;
   }
+  .bio_pic_rv{
+    width: 90%;
+    padding-top: 40px;
+    padding-bottom: 34px;
+  }
 
+}
+#whoare{
+  color: $alc_red;
+  font-size: 2em;
+  font-style: normal;
+  font-weight: 100;
 }
 
 
@@ -120,7 +126,7 @@ $alc_darkblue: #72cbd0;
 }
 
 #two_bullets_desc{
-  padding-top: 150px;
+  padding-top: 50px;
   padding-bottom: 50px;
   color:$alc_darkblue;
   background-color:rgba(255,255,255,1);
@@ -182,7 +188,7 @@ $alc_darkblue: #72cbd0;
   font-size: 2.5em;
   font-style: normal;
   font-weight: 200;
-  margin-top: 40px;
+  margin-top: 10px;
 
 }
 
@@ -1330,7 +1336,7 @@ $alc_darkblue: #72cbd0;
 .white_text{
   font-weight: 100;
   font-size: 5.0em;
-  color:white;
+  color:$alc_darkgray;
   margin-top: 140px;
 }
 
@@ -1338,4 +1344,17 @@ $alc_darkblue: #72cbd0;
   position: absolute;
   top:30px;
   z-index: 999999;
+}
+
+.gift{
+  width: 100%;
+  max-width: 200px;
+  margin-left:auto;
+  margin-right: auto;
+}
+.map_img{
+  width: 100%;
+  max-width: 200px;
+  margin-left:auto;
+  margin-right: auto;
 }
