@@ -374,7 +374,10 @@ alittlecloser.connection_map.setView([map_filter_obj.lat, map_filter_obj.lng], m
             $('#twitter_share_box').append('<a href="http://twitter.com/intent/tweet?url='+resp.connection.social_media_json+'&text='+resp.connection.title+'&hashtags=alittlecloser&via=bealittlecloser" target="_blank"><img class="twitter_share" src="/img/twitter_wht.png"></a>');
             $('#share_box').append('<div class="col-xs-1" id="facebook_share_box"></div>');
             $('#facebook_share_box').append('<a href="https://www.facebook.com/sharer/sharer.php?u='+resp.connection.social_media_json+'" target="_blank"><img class="fb_share" src="/img/fb.png"></a>');
-
+            if (resp.connection.body){
+                $('#share_box').append('<div class="col-xs-5" id="response_box"></div>');
+                $('#response_box').append('<a style="color: white;" href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
+            }
             $('#share_box').append('<div class="col-xs-1" id="close_box"></div>');
             $('#close_box').append('<a class="close_modal"><img class="fb_share" src="/img/close.png"></a>');
 
@@ -441,11 +444,15 @@ function connection_drawer(resp)
                 $('#twitter_share_box').append('<a href="http://twitter.com/intent/tweet?url='+resp.connection.social_media_json+'&text='+resp.connection.title+'&hashtags=alittlecloser&via=bealittlecloser" target="_blank"><img class="twitter_share" src="/img/twitter_wht.png"></a>');
                 $('#share_box').append('<div class="col-xs-1" id="facebook_share_box"></div>');
                 $('#facebook_share_box').append('<a href="https://www.facebook.com/sharer/sharer.php?u='+resp.connection.social_media_json+'" target="_blank"><img class="fb_share" src="/img/fb.png"></a>');
-                $('#share_box').append('<div class="col-xs-2 col-md-2" id="map_box"></div>');
+                $('#share_box').append('<div class="col-xs-3 col-md-2" id="map_box"></div>');
                 $('#map_box').append('<a href="'+resp.connection.social_media_json+'"><img class="map_link" src="/img/map.png">view on map</a>');
+                if (resp.connection.body){
+                    $('#share_box').append('<div class="col-xs-3 col-md-2" id="response_box"></div>');
+                    $('#response_box').append('<a href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
+                }
                 $('#connection_cont').append('<div id="supporting">');
                 $('#supporting').append('<div class="row" id="supporting_row">');
-                $('#supporting_row').append('<h4 id="map_from" class="col-md-2 col-md-offset-5 col-xs-2 col-xs-offset-5" >Media & Comments</h4>');
+                $('#supporting_row').append('<h4 id="comment_header" class="col-md-12 col-xs-12" >Media & Comments</h4>');
             }
             n=1;
         }

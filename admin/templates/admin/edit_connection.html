@@ -21,8 +21,9 @@
             <option value ="2">Request Completed</option>
         </select>
         <h4>Success Teaser:</h4>
+        <input id="apikey" type="text" placeholder="API Key">
         <div class="editable" id="body_html">
-
+            EDIT THIS BEFORE SUBMITTING
         </div>
 
         <div class="btn btn-default" id="adminupdatebutton">Submit</div>
@@ -59,9 +60,9 @@
                 var body_div = document.getElementById('body_html');
                 var body = body_div.innerHTML;
                 var connection_stage = $("select#completion_status").val()
-                var apikey = {{apikey}}
+                var apikey = $("input#apikey").text();
 
-                var media = alittlecloser.media_ids.toString();
+//                var media = alittlecloser.media_ids.toString();
 
                 var callback = function () {
                     gapi.client.alittlecloser.connections.update({apikey: apikey, connection_id:'{{connection_id}}',body: body,connection_stage: connection_stage}).execute(function (resp) {

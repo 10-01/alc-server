@@ -44,6 +44,10 @@
   font-style: normal;
   font-weight: 100; }
 
+#admin_connection_holder {
+  display: block;
+  color: black; }
+
 #one_liner_desc {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 30px;
@@ -282,6 +286,16 @@
     background-color: #b6e2e9;
     margin-left: 5px;
     padding-left: 0px; }
+  #map_item_results_cont .response_link {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px; }
+  #map_item_results_cont #response_box {
+    margin-top: 5px;
+    background-color: #b6e2e9;
+    margin-left: 5px;
+    text-align: center;
+    color: white; }
   #map_item_results_cont .fb_share {
     width: 30px;
     height: 30px; }
@@ -305,6 +319,8 @@
     opacity: .8;
     top: 0px;
     color: #e84924; }
+  #map_item_results_cont #comment_header {
+    text-align: center; }
   #map_item_results_cont .stage {
     position: absolute;
     top: 12px;
@@ -432,7 +448,8 @@
 #connection_cont h4 {
   color: #72cbd0;
   font-size: 1em;
-  font-family: "proxima-nova",sans-serif; }
+  font-family: "proxima-nova",sans-serif;
+  text-align: center; }
 #connection_cont .connection_item {
   padding: 0px 0px 0px 0px;
   margin-bottom: 15px; }
@@ -492,9 +509,18 @@
   background-color: #b6e2e9;
   margin-left: 5px;
   text-align: center; }
+#connection_cont #response_box {
+  margin-top: 5px;
+  background-color: #b6e2e9;
+  margin-left: 5px;
+  text-align: center; }
 #connection_cont a {
   color: white; }
 #connection_cont .map_link {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px; }
+#connection_cont .response_link {
   width: 30px;
   height: 30px;
   margin-right: 5px; }
@@ -795,7 +821,7 @@
   margin: 30px; }
 
 #close_box {
-  margin-left: 72%;
+  float: right;
   margin-top: 5px; }
 
 .close_modal {

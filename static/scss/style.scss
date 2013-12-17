@@ -78,6 +78,11 @@ $alc_darkblue: #72cbd0;
   font-weight: 100;
 }
 
+#admin_connection_holder{
+  display: block;
+  color: black;
+
+}
 
 #one_liner_desc{
   background-color:rgba(255,255,255,.95);
@@ -369,6 +374,18 @@ $alc_darkblue: #72cbd0;
     margin-left: 5px;
     padding-left: 0px;
   }
+  .response_link{
+    width: 30px;
+    height: 30px;
+    margin-right:5px;
+  }
+  #response_box{
+    margin-top: 5px;
+    background-color: $alc_green;
+    margin-left: 5px;
+    text-align: center;
+    color: white;
+  }
 
   .fb_share{
     width: 30px;
@@ -404,7 +421,8 @@ $alc_darkblue: #72cbd0;
   #map_item_personthing {
 
   }
-  #map_from{
+  #comment_header{
+    text-align: center;
 
   }
   #map_to{
@@ -581,6 +599,7 @@ $alc_darkblue: #72cbd0;
     color: $alc_darkblue;
     font-size: 1em;
     font-family: "proxima-nova",sans-serif;
+    text-align: center;
 
 
   }
@@ -658,11 +677,24 @@ $alc_darkblue: #72cbd0;
     text-align: center;
   }
 
+  #response_box{
+    margin-top: 5px;
+    background-color: $alc_green;
+    margin-left: 5px;
+    text-align: center;
+  }
+
   a{
     color:white;
   }
 
   .map_link{
+    width: 30px;
+    height: 30px;
+    margin-right:5px;
+  }
+
+  .response_link{
     width: 30px;
     height: 30px;
     margin-right:5px;
@@ -987,7 +1019,7 @@ $alc_darkblue: #72cbd0;
 }
 
 #close_box{
-  margin-left: 72%;
+  float: right;
   margin-top: 5px;
 }
 
