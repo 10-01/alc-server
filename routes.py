@@ -44,6 +44,9 @@ _routes = [
     RedirectRoute('/fileupload', handlers.MediaUploadHandler, name='fileupload', strict_slash=True),
     RedirectRoute('/blobserve/<media_key>', handlers.GetMediaHandler, name='blobupload', strict_slash=True),
     RedirectRoute('/mc', handlers.MailchimpUserHandler, name='mailchimp', strict_slash=True),
+    RedirectRoute('/pinterest-0fdc7.html', handlers.PinterestHandler, name='pinterest', strict_slash=True),
+   
+
 
     RedirectRoute('/', handlers.HomeRequestHandler, name='home', strict_slash=True)
 ]

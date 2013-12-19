@@ -1746,6 +1746,17 @@ class ProfileHandler(BaseHandler):
         params = {}
         return self.render_template('profile.html', **params)
 
+class PinterestHandler(BaseHandler):
+    """
+    Handler for requesting successful connection information
+    """
+
+    def get(self):
+        """ Returns a simple HTML form for home """
+        params = {}
+        return self.render_template('pinterest-0fdc7.html', **params)
+
+
 
 class ConnectionApiHandler(BaseHandler):
     """

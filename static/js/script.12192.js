@@ -12,7 +12,7 @@
 /** alittlecloser global namespace */
 var alittlecloser = alittlecloser || {};
 
-alittlecloser.apiRoot = '/_ah/api';
+alittlecloser.apiRoot = 'https://pivotal-essence-333.appspot.com/_ah/api';
 
 
 

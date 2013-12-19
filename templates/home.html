@@ -16,9 +16,15 @@
     <div class="row header_row">
         <div class="col-md-12 col-xs-12 signup_form">
             <div class="signup">
+                <div class="col-md-12 col-xs-12">
+                    {% if is_mobile %}
+                    <a style="margin-bottom: 20px;" class="btn btn-danger btn-lg" href="https://itunes.apple.com/us/app/a-little-closer/id775664935?ls=1&mt=8" role="button">Download Free iPhone App</a>
+                    {% endif %}
+                </div>
                 <div class="col-xs-12 col-md-12" id="signup">
                     <button href="#signUpModal" type="button" class="btn btn-danger btn-lg" data-toggle="modal">Sign Up (It's Free)
                     </button>
+
                 </div>
             </div>
 
@@ -113,7 +119,7 @@
         <div class="col-xs-12 col-md-3">
             <div class="red_text">Ginger</div>
             <img class="bio_pic_rv" src="/img/logo_large.png">
-            <p>A 29 foot 1997 Winnebago Itasca Sunrise, renovated by us over a few months.</p>
+            <p>A 29-foot 1997 Winnebago Itasca Sunrise, with a newly renovated interior all done by our handy work.</p>
         </div>
         <div class="col-xs-12 col-md-3">
             <div>
@@ -150,7 +156,12 @@
 
 
     <div class="row" id="footer">
-
+        <div class="col-md-2 col-md-offset-2 col-xs-4" id="facebook">
+            <div id="facebook_share_box">
+                <a href="https://facebook.com/bealittlecloser" target="_blank"><img class="twitter_share"
+                                                                                   src="/img/fb.png"></a>
+            </div>
+        </div>
         <div class="col-md-2 col-xs-4" id="twitter">
             <div id="twitter_share_box">
                 <a href="https://twitter.com/bealittlecloser" target="_blank"><img class="twitter_share"
@@ -161,6 +172,12 @@
             <div id="tumblr_share_box">
                 <a href="http://bealittlecloser-com.tumblr.com/" target="_blank"><img class="twitter_share"
                                                                                       src="/img/tumblr.png"></a>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-4" id="pinterest">
+            <div id="pinterest_share_box">
+                <a href="http://www.pinterest.com/bealittlecloser" target="_blank"><img class="twitter_share"
+                                                                                      src="/img/pinterest.png"></a>
             </div>
         </div>
 
