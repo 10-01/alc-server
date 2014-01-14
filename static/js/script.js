@@ -37,13 +37,14 @@ alittlecloser.extend_connections = function(cursor){
 };
 
 
+
 alittlecloser.drawconnections = function(resp){
     for (var i=0,j=resp.connections.length;i<j;i++){
         if (resp.connections[i].title){
-            $('#connection_holder').append($('<div/>', {'class': 'row', html: $('<div/>', {'class': 'col-md-12 col-xs-12 connection_item', html: $('<div/>', {'class': 'connection_listing', 'id': resp.connections[i].id, html: $('<a/>', {href: '/closer/' + resp.connections[i].id, html: $('<img class="col-md-12 col-xs-12" src="'+resp.connections[i].media[0].media_item_message[3].blob_key+'=s1171" alt="Primary Image"> ')})})})}));
+            $('#connection_holder').append($('<div/>', {'class': 'row', html: $('<div/>', {'class': 'col-md-10 col-md-offset-1 col-xs-12 connection_item', html: $('<div/>', {'class': 'connection_listing', 'id': resp.connections[i].id, html: $('<a/>', {href: '/closer/' + resp.connections[i].id, html: $('<img class="col-md-12 col-xs-12" src="'+resp.connections[i].media[0].media_item_message[3].blob_key+'=s1171" alt="Primary Image"> ')})})})}));
 
-            $('#'+resp.connections[i].id).append('<a href="/closer/'+resp.connections[i].id+'"><p class="item_title_conn">'+resp.connections[i].title+'</p></a>');
-            $('#'+resp.connections[i].id).append('<div class="item_header_conn"></d>');
+            $('#'+resp.connections[i].id).append('<a href="/closer/'+resp.connections[i].id+'"><p class="col-md-12 col-xs-12  item_title_conn">'+resp.connections[i].title+'</p></a>');
+            $('#'+resp.connections[i].id).append('<a href="/closer/'+resp.connections[i].id+'"><div class="item_header_conn"></div></a>');
             $('#'+resp.connections[i].id).append('<div class="stage" id="stage_'+resp.connections[i].id+'">');
             if(resp.connections[i].connection_stage === "0"){
                 $('#stage_'+resp.connections[i].id).append('<div class="fill_circle"></div>');
@@ -638,14 +639,25 @@ function parse_blog(json_object,offset){
             var photos;
             for (var j = 0; j < json_object[i].photos.length; j++) {
                 if (! photos){
+                    if (json_object[i].link_url){
+                        photos = ('<div class="photos"><a href="'+json_object[i].link_url+'" target="_blank"><img src="' + json_object[i].photos[j].alt_sizes[0].url +'"></a></div>');
+                    }
+                    else{
                     photos = ('<div class="photos"><img src="' + json_object[i].photos[j].alt_sizes[0].url +'"></div>');
+                    }
                 }
                 else{
-                    photos = photos + ('<div class="photos"><img src="' + json_object[i].photos[j].alt_sizes[0].url +'"></div>');
-                }
+                    if (json_object[i].link_url){
+                        photos = photos + ('<div class="photos"><a href="'+json_object[i].link_url+'" target="_blank"><img src="' + json_object[i].photos[j].alt_sizes[0].url +'"></a></div>');
+                    }
+                    else{
+                        photos = photos + ('<div class="photos"><img src="' + json_object[i].photos[j].alt_sizes[0].url +'"></div>');
+
+                    }
+                    }
             }
 
-            $("#blog_holder").append('<article class="blog_post" id="blog_' + json_object[i].id + '"><div id="blog_body_' + json_object[i].id + '" >'+photos+'</div><div class="image_caption">' + json_object[i].caption + '</div><div class="blog_footer">'+tags+date_share+'</div></article>');
+            $("#blog_holder").append('<article class="blog_post" id="blog_' + json_object[i].id + '"><div id="blog_body_' + json_object[i].id + '" >'+photos+'</div><div class="blog_footer">'+date_share+'</div><div class="image_caption">' + json_object[i].caption + '</div></article>');
         }
         if (json_object[i].type === "quote"){
             $("#blog_holder").append('<article class="blog_post" id="blog_' + json_object[i].id + '"><h3>' + json_object[i].text + '</h3></div></article>');

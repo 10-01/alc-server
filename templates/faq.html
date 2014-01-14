@@ -1,0 +1,66 @@
+{% extends base_layout %}
+
+{% block header_title %}
+{% trans %}FAQ{% endtrans %}
+{% endblock %}
+
+{% block content %}
+<div class="container faq_container">
+    <div class="row faq_question">
+        <h3 class="question">How do I know my requested gift was selected?</h3>
+        <p class="answer">We cannot guarantee that your gift will be selected, we generally only select 1 gift per week at the value of $30, or we may do two $15 gifts or three $10 gifts. It also depends on where we are on the road. At this time, <strong>a little closer </strong>is just one vehicle, meaning we can only deliver a limited amount of gifts. We will contact you via the email used at registration if we’ve selected to deliver your gift. </p>
+    </div>
+    <div class="row faq_question">
+        <h3 class="question">When will the requested gift arrive?</h3>
+        <p class="answer">The premise of <strong>a little closer</strong> is ‘an unexpected gift at an unexpected time.’ With that in mind, we make no commitment to the date of delivery; it all depends on where we currently are and when we can get to the delivery location for your gift. </p>
+    </div>
+    <div class="row faq_question">
+        <h3 class="question">How often will you deliver gifts?</h3>
+        <p class="answer">Our goal is to deliver at least one a week. There will be times when we are in a place that no one has requested a gift be delivered, meaning there will be spans of more than a week without a delivery. As long as there is a request nearby, we should be delivering at least once a week. </p>
+    </div>
+    <div class="row faq_question">
+        <h3 class="question">What if my gift is more than $30?</h3>
+        <p class="answer">For any gift over $30 we can take either credit cards or PayPal payments to cover the extra cost. We will not ask for any money until we have contacted you and committed to delivering your gift. </p>
+    </div>
+    <div class="row faq_question">
+        <h3 class="question">How will I know if my gift has been delivered?</h3>
+        <p class="answer">We will contact you via the email you used to register for <strong>a little closer</strong> to inform you we’ve selected to deliver your gift. We will also ask you about the final details and logistics to carry out the gift delivery. After the gift has been delivered we will post the photos and/or the video of the recipient accepting the gift to our site as well as send them directly to you. </p>
+    </div>
+    <div class="row faq_question">
+        <h3 class="question">How does a little closer make money?</h3>
+        <p class="answer"><strong>a little closer</strong> does not make money at this time.</p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block mediaJS %}
+<script type="text/javascript">
+    $().ready(function() {
+        $("#form_register").validate({
+            submitHandler: function(form) {
+                form.submit();
+            },
+            rules: {
+                password: 'required',
+                c_password: {
+                    required: true,
+                    equalTo: '#password'
+                }
+            },
+            errorPlacement: function(error, element) {
+                element.parent().parent().addClass("error");
+                error.addClass("help-inline").appendTo( element.parent() );
+            }
+        });
+
+        $("#password").passStrength({
+            shortPassText: '{% trans %}Short Password{% endtrans %}',
+            badPassText: '{% trans %}Insecure Password{% endtrans %}',
+            goodPassText: '{% trans %}Good Password{% endtrans %}',
+            strongPassText: '{% trans %}Secure Password{% endtrans %}'
+        });
+    });
+</script>
+{% endblock %}
+

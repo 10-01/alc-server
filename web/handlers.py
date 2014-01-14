@@ -759,8 +759,7 @@ class LogoutHandler(BaseHandler):
 
     def get(self):
         if self.user:
-            message = _("You've signed out successfully. Warning: Please clear all cookies and logout "
-                        "of OpenId providers too if you logged in on a public computer.")
+            message = _("You've signed out successfully. ")
             self.add_message(message, 'info')
 
         self.auth.unset_session()
@@ -1725,6 +1724,17 @@ class EulaHandler(BaseHandler):
         """ Returns a simple HTML form for home """
         params = {}
         return self.render_template('eula.html', **params)
+
+class FAQHandler(BaseHandler):
+    """
+    Handler for requesting successful connection information
+    """
+
+    def get(self):
+        """ Returns a simple HTML form for home """
+        params = {}
+        return self.render_template('faq.html', **params)
+
 
 class PaymentHandler(BaseHandler):
     """

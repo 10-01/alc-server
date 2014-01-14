@@ -317,7 +317,7 @@ class ALittleCloserApi(ALittleCloserBaseService):
         new_search_doc_id = self.search_doc_create(search_document_dictionary, index)
 
         short = new_connection_key.get()
-        short_url = 'http://pivotal-essence-333.appspot.com/map?node_id=%s&lat=%s&lng=%s&zoom=15' % (new_connection_key.id(), request.latitude, request.longitude)
+        short_url = 'http://www.bealittlecloser.com/map?node_id=%s&lat=%s&lng=%s&zoom=15' % (new_connection_key.id(), request.latitude, request.longitude)
         short.social_media_json = self.create_short_url(short_url)
         short.put()
 

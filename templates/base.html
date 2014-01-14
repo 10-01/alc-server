@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <link rel="stylesheet" href="/css/style.12192.css">
+    <link rel="stylesheet" href="/css/style.11214.css">
     <link rel="stylesheet" href="/css/basic.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -82,6 +82,7 @@
                     <li {% if path == uri_for("blog") %} class="active"{% endif %}><a href="{{ uri_for("blog") }}">Blog</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li {% if path == uri_for("faq") %} class="active"{% endif %}><a href="{{ uri_for("faq") }}">FAQ</a></li>
                     {% if user_id %}
                     <li><a data-toggle="modal" href="#addConnectionModal"><span style="margin-right: 10px;" class="glyphicon glyphicon-plus"></span>Add Connection</a></li>
                     <li class="divider-vertical"></li>
@@ -177,7 +178,9 @@
                                 <input type="hidden" name="tz">
                                 <button type="submit" class="btn btn-danger">{% trans %}Sign Up{% endtrans %}</button>
                             </div>
+                        <div style="margin-top: 10px; font-size: .6em; color: lightgray;">By signing up, you agree to our <a href="/eula">EULA</a></div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -309,7 +312,7 @@
 
     <!-- scripts concatenated and minified via build script -->
     <script src="/js/plugins.js"></script>
-    <script src="/js/script.12192.js"></script>
+    <script src="/js/script.12203.min.js"></script>
     <script type="text/javascript">
         $( '#give_summary' ).parsley( 'addListener', {
             onFieldValidate: function ( elem ) {
