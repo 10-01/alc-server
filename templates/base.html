@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <link rel="stylesheet" href="/css/style.11214.css">
+    <link rel="stylesheet" href="/css/style.013014.css">
     <link rel="stylesheet" href="/css/basic.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -70,6 +70,14 @@
     	or <a href="http://www.google.com/chromeframe/?redirect=true">
     	install Google Chrome Frame</a> to experience this site.{% endtrans %}</p>
     <![endif]-->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1403301609884244";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
     <div id="page">
         {% block navbar %}
@@ -312,7 +320,7 @@
 
     <!-- scripts concatenated and minified via build script -->
     <script src="/js/plugins.js"></script>
-    <script src="/js/script.12203.min.js"></script>
+    <script src="/js/script.12513.min.js"></script>
     <script type="text/javascript">
         $( '#give_summary' ).parsley( 'addListener', {
             onFieldValidate: function ( elem ) {

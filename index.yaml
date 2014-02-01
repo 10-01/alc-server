@@ -24,6 +24,19 @@ indexes:
 
 - kind: Connection
   properties:
+  - name: connection_stage
+  - name: created
+    direction: desc
+
+- kind: Connection
+  properties:
+  - name: connection_stage
+    direction: desc
+  - name: created
+    direction: desc
+
+- kind: Connection
+  properties:
   - name: loc_name
   - name: created
     direction: desc

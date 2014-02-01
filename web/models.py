@@ -373,7 +373,7 @@ class Connection(ndb.Model):
             qry_var_new = qry_var.filter(cls._properties[k] == v)
             qry_var = qry_var_new
 
-        return qry_var.order(-cls.created).fetch_page(limit, start_cursor=curs)
+        return qry_var.order(-cls.connection_stage, -cls.created).fetch_page(limit, start_cursor=curs)
 
 
     @classmethod

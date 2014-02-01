@@ -142,6 +142,20 @@
     background-color: #b6e2e9;
     padding-left: 3px;
     text-align: center; }
+  #footer #exposure_share_box {
+    margin: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: #b6e2e9;
+    padding-left: 3px;
+    text-align: center; }
+  #footer #vimeo_share_box {
+    margin: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: #b6e2e9;
+    padding-left: 3px;
+    text-align: center; }
   #footer #facebook_share_box {
     margin: 10px;
     margin-right: 0px;
@@ -436,6 +450,14 @@
     font-size: 3em;
     color: white; }
 
+.completed_top_connection {
+  background-color: #f3f4f2;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px; }
+  .completed_top_connection h3 {
+    font-weight: 200; }
+
 #connection_filter {
   height: 30px;
   margin-bottom: 20px; }
@@ -480,10 +502,11 @@
   padding: 0px 0px 0px 0px;
   margin-bottom: 15px; }
 #connection_cont .stage {
-  position: absolute;
-  top: 12px;
-  right: 20px;
-  z-index: 100; }
+  width: 100%;
+  margin-left: 45%;
+  margin-right: 45%;
+  height: 30px;
+  margin-bottom: 30px; }
 #connection_cont img {
   padding: 0; }
 #connection_cont .fill_circle {
@@ -516,12 +539,12 @@
   top: 0px;
   color: #e84924; }
 #connection_cont .item_title_conn {
-  z-index: 99;
-  position: absolute;
-  top: 15px;
-  left: 30px;
-  font-size: 1.2em;
-  color: #e84924; }
+  font-size: 2.5em;
+  font-weight: 100;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  color: #8b8d8a; }
 #connection_cont #share_box {
   margin-top: 5px;
   height: 40px;
@@ -841,7 +864,9 @@
   font-family: "proxima-nova",sans-serif; }
 
 .load_more_results {
-  margin: 30px; }
+  margin: 30px;
+  padding-bottom: 50px;
+  text-align: center; }
 
 .spinner_id {
   margin: 30px; }
@@ -1109,12 +1134,16 @@
 .blog_title {
   color: #e84924;
   font-weight: 100;
-  font-size: 3em; }
+  font-size: 2.5em; }
 
 .blog_footer {
   padding-bottom: 15px;
   color: #72cbd0;
   font-style: italic; }
+
+#blog_holder hr {
+  margin-top: 60px;
+  margin-bottom: 60px; }
 
 #connection_table {
   display: none; }

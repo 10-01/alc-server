@@ -68,7 +68,7 @@ alittlecloser.drawconnections = function(resp){
     $('.spinner_id').hide();
     $('#connection_holder').fadeIn();
     if(resp.cursor != "No More Results"){
-        $('#connection_holder').append('<div class="row"><div class="col-md-offset-5 col-md-4"><button type="button" id="' + resp.cursor + '" class="btn btn-large btn-danger load_more_results">Load More Connections</button></div></div>');
+        $('#connection_holder').append('<div class="row"><div class="col-md-offset-4 col-md-4" style="margin-bottom: 70px;"><button style="margin-left: 80px;" type="button" id="' + resp.cursor + '" class="btn btn-large btn-danger load_more_results">Load More Connections</button></div></div>');
     }
 };
 
@@ -375,10 +375,11 @@ alittlecloser.connection_map.setView([map_filter_obj.lat, map_filter_obj.lng], m
             $('#twitter_share_box').append('<a href="http://twitter.com/intent/tweet?url='+resp.connection.social_media_json+'&text='+resp.connection.title+'&hashtags=alittlecloser&via=bealittlecloser" target="_blank"><img class="twitter_share" src="/img/twitter_wht.png"></a>');
             $('#share_box').append('<div class="col-xs-1" id="facebook_share_box"></div>');
             $('#facebook_share_box').append('<a href="https://www.facebook.com/sharer/sharer.php?u='+resp.connection.social_media_json+'" target="_blank"><img class="fb_share" src="/img/fb.png"></a>');
-            if (resp.connection.body){
-                $('#share_box').append('<div class="col-xs-5" id="response_box"></div>');
-                $('#response_box').append('<a style="color: white;" href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
-            }
+//            Button to link
+//            if (resp.connection.body){
+//                $('#share_box').append('<div class="col-xs-5" id="response_box"></div>');
+//                $('#response_box').append('<a style="color: white;" href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
+//            }
             $('#share_box').append('<div class="col-xs-1" id="close_box"></div>');
             $('#close_box').append('<a class="close_modal"><img class="fb_share" src="/img/close.png"></a>');
 
@@ -403,9 +404,8 @@ function connection_drawer(resp)
             if(resp.connection.media[i].media_item_message[0].file_cat==="image"){
                 $('#connection_cont').append('<div class="row" id="big_row" ></div>');
                 $('#big_row').append('<div class="col-md-12 col-xs-12 connect_holder"></div>');
-                $('.connect_holder').append('<img class="col-md-12 col-xs-12"  data-filename="'+resp.connection.media[i].filename+'" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1171" alt="Smiley face">');
                 $('.connect_holder').append('<a><p class="item_title_conn">'+resp.connection.title+'</p></a>');
-                $('.connect_holder').append('<div class="item_header_conn"></d>');
+
                 $('.connect_holder').append('<div class="stage">');
                 if(resp.connection.connection_stage === "0"){
                     $('.stage').append('<div class="fill_circle"></div>');
@@ -422,6 +422,13 @@ function connection_drawer(resp)
                     $('.stage').append('<div class="fill_circle"></div>');
                     $('.stage').append('<div class="fill_circle"></div>');
                 }
+
+                if(resp.connection.connection_stage === "2"){
+                    $('.connect_holder').append('<div class="completed_top_connection">'+resp.connection.body+'</div>');
+                }
+
+                $('.connect_holder').append('<div class="main_image_header"><img class="col-md-12 col-xs-12"  data-filename="'+resp.connection.media[i].filename+'" src="'+resp.connection.media[i].media_item_message[3].blob_key+'=s1171" alt="Smiley face"></div>');
+
 
                 $('#connection_cont').append('<div id="map_items_boot">');
                 $('#map_items_boot').append('<div class="row" id="map_item_person">');
@@ -447,10 +454,10 @@ function connection_drawer(resp)
                 $('#facebook_share_box').append('<a href="https://www.facebook.com/sharer/sharer.php?u='+resp.connection.social_media_json+'" target="_blank"><img class="fb_share" src="/img/fb.png"></a>');
                 $('#share_box').append('<div class="col-xs-3 col-md-2" id="map_box"></div>');
                 $('#map_box').append('<a href="'+resp.connection.social_media_json+'"><img class="map_link" src="/img/map.png">view on map</a>');
-                if (resp.connection.body){
-                    $('#share_box').append('<div class="col-xs-3 col-md-2" id="response_box"></div>');
-                    $('#response_box').append('<a href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
-                }
+//                if (resp.connection.body){
+//                    $('#share_box').append('<div class="col-xs-3 col-md-2" id="response_box"></div>');
+//                    $('#response_box').append('<a href="'+resp.connection.body+'"><img class="response_link" src="/img/person.png">the response</a>');
+//                }
                 $('#connection_cont').append('<div id="supporting">');
                 $('#supporting').append('<div class="row" id="supporting_row">');
                 $('#supporting_row').append('<h4 id="comment_header" class="col-md-12 col-xs-12" >Media & Comments</h4>');
@@ -631,8 +638,7 @@ function parse_blog(json_object,offset){
             }
 
 
-            $("#blog_holder").append('<article class="blog_post" id="blog_' + json_object[i].id + '"><h3 class="blog_title">' + json_object[i].title + '</h3><div class="blog_footer">'+date_share+'</div><div id="blog_body_' + json_object[i].id + '" >' + json_object[i].body + '</div></article>');
-
+            $("#blog_holder").append('<article class="blog_post" id="blog_' + json_object[i].id + '"><h3 class="blog_title">' + json_object[i].title + '</h3><div class="blog_footer">'+date_share+'</div><div id="blog_body_' + json_object[i].id + '" >' + json_object[i].body + '</div></article></div>');
 
         }
         if (json_object[i].type === "photo"){

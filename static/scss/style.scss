@@ -199,6 +199,22 @@ $alc_darkblue: #72cbd0;
     padding-left: 3px;
     text-align: center;
   }
+  #exposure_share_box{
+    margin: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: $alc_green;
+    padding-left: 3px;
+    text-align: center;
+  }
+  #vimeo_share_box{
+    margin: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background-color: $alc_green;
+    padding-left: 3px;
+    text-align: center;
+  }
   #facebook_share_box{
     margin: 10px;
     margin-right: 0px;
@@ -211,6 +227,7 @@ $alc_darkblue: #72cbd0;
     width: 80px;
     height: 80px;
   }
+
 
 }
 
@@ -578,6 +595,16 @@ $alc_darkblue: #72cbd0;
 
 }
 
+.completed_top_connection{
+  background-color: #f3f4f2;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  h3{
+    font-weight: 200;
+  }
+}
+
 #connection_filter{
 
   height:30px;
@@ -639,15 +666,18 @@ $alc_darkblue: #72cbd0;
 
   }
   .stage{
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    z-index: 100;
+    width: 100%;
+    margin-left: 45%;
+    margin-right: 45%;
+    height: 30px;
+    margin-bottom: 30px;
   }
   img{
     padding: 0;
   }
+
   .fill_circle{
+
     width: 20px;
     height: 20px;
     -webkit-border-radius: 10px;
@@ -680,12 +710,12 @@ $alc_darkblue: #72cbd0;
     color: $alc_red;
   }
   .item_title_conn {
-    z-index: 99;
-    position: absolute;
-    top: 15px;
-    left: 30px;
-    font-size: 1.2em;
-    color: $alc_red;
+    font-size: 2.5em;
+    font-weight: 100;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: $alc_gray;
   }
   #share_box{
     margin-top: 5px;
@@ -1042,6 +1072,8 @@ $alc_darkblue: #72cbd0;
 
 .load_more_results{
   margin: 30px;
+  padding-bottom: 50px;
+  text-align: center;
 }
 
 .spinner_id{
@@ -1331,7 +1363,7 @@ $alc_darkblue: #72cbd0;
 .blog_title {
   color: $alc_red;
   font-weight: 100;
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 
@@ -1339,9 +1371,15 @@ $alc_darkblue: #72cbd0;
   padding-bottom: 15px;
   color: $alc_darkblue;
   font-style:italic
-
-
 }
+
+#blog_holder{
+  hr{
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+}
+
 #loading {
 
 }
