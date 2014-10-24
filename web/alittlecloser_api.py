@@ -851,7 +851,7 @@ class ALittleCloserApi(ALittleCloserBaseService):
         if request.limit:
             limit = request.limit
         else:
-            limit = 300
+            limit = 600
 
         self.all_locations, next_curs, more_results = Locations.get_locations(self.curs, limit, filter_dict)
         self.final_locations = [location.to_location_message() for location in self.all_locations]

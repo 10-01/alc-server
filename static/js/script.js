@@ -233,7 +233,7 @@ gapi.client.load('alittlecloser', 'v1', callback, alittlecloser.apiRoot);
     alittlecloser.load_completed = function()
 {
     var callback = function() {
-        gapi.client.alittlecloser.locations.list({'type':"completed"}).execute(function(resp){
+        gapi.client.alittlecloser.locations.list({'type':"completed",'limit':600}).execute(function(resp){
             console.log(resp);
             var line_points = [];
             for (var i=0,j=resp.locations.length;i<j;i++){
